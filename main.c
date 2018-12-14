@@ -6,16 +6,17 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 13:53:07 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/13 16:07:04 by scoron           ###   ########.fr       */
+/*   Updated: 2018/12/14 21:39:12 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include "ft_printf.h"
 
 int		main(void)
 {
-	int  d = 2;
-	printf("Check %cdvk\n");
+	int  k = 2;
+	ft_printf("Devrait afficher 2 : %d \n", k);
 
 	return (0);
 }

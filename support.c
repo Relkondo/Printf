@@ -5,41 +5,55 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/30 23:38:49 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/13 19:15:55 by scoron           ###   ########.fr       */
+/*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
+/*   Updated: 2018/12/14 21:43:14 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	pf_print_nbr(int nbp)
+static char	*ft_putint(char *res, int n, size_t len)
 {
-	if (nbp > 9)
-	{
-		ft_print_nbr(nbp / 10);
-		ft_putchar(nbp % 10 + '0');
-	}
-	else
-		ft_putchar(nbp + '0');
-}
-
-void		pf_putnbr(t_ftp *p)
-{
-
-	int check;
-
-	check = 0;
+	if (n == 0)
+		res[0] = '0';
 	if (n == -2147483648)
 	{
-		n = -214748364;
-		check = 1;
+		res[--len] = '8';
+		n /= 10;
 	}
 	if (n < 0)
 	{
-		ft_putchar('-');
+		res[0] = '-';
 		n *= -1;
 	}
-	pf_print_nbr(n);
-	if (check == 1)
-		ft_putchar('8');
+	while (n != 0)
+	{
+		res[--len] = (n % 10) + '0';
+		n /= 10;
+	}
+	return (res);
+}
+
+void		pf_itoa(t_ftp *p)
+{
+	char	*res;
+	size_t	len;
+	int		n;
+	int		k;
+
+	n = va_arg(p->va, int);
+	len = 1;
+	k = n;
+	if (n < 0)
+		len++;
+	while (k / 10 != 0)
+	{
+		len++;
+		k /= 10;
+	}
+	if (!(res = (char *)malloc((len + 1) * sizeof(char))))
+		return ;
+	res[len] = 0;
+	res = ft_putint(res, n, len);
+	buffer(p, (int)len, res);
 }
