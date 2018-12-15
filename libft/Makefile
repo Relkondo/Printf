@@ -6,7 +6,7 @@
 #    By: scoron <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:44:30 by scoron            #+#    #+#              #
-#    Updated: 2018/12/14 21:04:00 by scoron           ###   ########.fr        #
+#    Updated: 2018/12/15 19:57:55 by scoron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,8 +55,9 @@ SRCS = ft_memset.c \
 	   ft_strjoin.c \
 	   ft_strtrim.c \
 	   ft_strsplit.c \
-	   ft_itoa.c \
 	   ft_putchar.c \
+	   ft_itoa.c \
+	   ft_uitoa.c \
 	   ft_putstr.c \
 	   ft_putendl.c \
 	   ft_putnbr.c \

@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 13:53:07 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/14 21:39:12 by scoron           ###   ########.fr       */
+/*   Updated: 2018/12/15 21:28:28 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 int		main(void)
 {
-	int  k = 2;
-	ft_printf("Devrait afficher 2 : %d \n", k);
+	int  k = 16;
+	ft_printf("en dec :  %d  en octal : %o et en hxdec : %x\n", k, k, k);
+	printf("en dec :  %d  en octal : %o et en hxdec : %x\n", k, k, k);
 
 	return (0);
 }

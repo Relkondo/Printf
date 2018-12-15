@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 08:34:59 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/05 20:28:22 by scoron           ###   ########.fr       */
+/*   Updated: 2018/12/15 20:58:53 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);
+char				*ft_uitoa(unsigned int n);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
 void				ft_putendl(char const *s);
@@ -98,7 +99,7 @@ void				ft_advanced_sort_wordtab(char **tab,
 char				*ft_convert_base(char *nbr, char *base_from, char *base_to);
 int					ft_any(char **tab, int (*f)(char*));
 void				ft_swap(char **tab, int i);
-int					ft_atoi_base(char *str, char *base);
+long					ft_atoi_base(char *str, char *base);
 char				*ft_strcutuntil(char **src, int c);
 char				*ft_strshorten(char **s, int start, int len);
 int					get_next_line(const int fd, char **line);

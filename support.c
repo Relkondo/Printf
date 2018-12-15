@@ -6,54 +6,25 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/14 21:43:14 by scoron           ###   ########.fr       */
+/*   Updated: 2018/12/15 21:26:26 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
-static char	*ft_putint(char *res, int n, size_t len)
+void		cs_nbr(t_ftp *p, char c)
 {
-	if (n == 0)
-		res[0] = '0';
-	if (n == -2147483648)
-	{
-		res[--len] = '8';
-		n /= 10;
-	}
-	if (n < 0)
-	{
-		res[0] = '-';
-		n *= -1;
-	}
-	while (n != 0)
-	{
-		res[--len] = (n % 10) + '0';
-		n /= 10;
-	}
-	return (res);
-}
-
-void		pf_itoa(t_ftp *p)
-{
-	char	*res;
-	size_t	len;
 	int		n;
-	int		k;
+	char	*res;
 
 	n = va_arg(p->va, int);
-	len = 1;
-	k = n;
-	if (n < 0)
-		len++;
-	while (k / 10 != 0)
-	{
-		len++;
-		k /= 10;
-	}
-	if (!(res = (char *)malloc((len + 1) * sizeof(char))))
-		return ;
-	res[len] = 0;
-	res = ft_putint(res, n, len);
-	buffer(p, (int)len, res);
+	res = (c == 'd' || c == 'D' || c == 'i') ? ft_itoa(n) : ft_uitoa(n);
+	if (c == 'o' || c == 'O')
+		res = ft_convert_base(res, "0123456789", "01234567");
+	else if (c == 'X')
+		res = ft_convert_base(res, "0123456789", "0123456789ABCDEF");
+	else if (c == 'x')
+		res = ft_convert_base(res, "0123456789", "0123456789abcdef");
+		buffer(p, ft_strlen(res), res);
 }

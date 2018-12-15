@@ -6,11 +6,12 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 18:52:00 by scoron            #+#    #+#             */
-/*   Updated: 2018/11/15 19:26:06 by scoron           ###   ########.fr       */
+/*   Updated: 2018/12/15 21:18:21 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static int		ft_check_error_b(char *base)
 {
@@ -37,7 +38,7 @@ static int		ft_check_error_b(char *base)
 	return (0);
 }
 
-static int		ft_find(char *str, char *base, int i, int j)
+static int		ft_find(char *str, char *base, long i, int j)
 {
 	int r;
 
@@ -68,7 +69,7 @@ static int		ft_find(char *str, char *base, int i, int j)
 char			*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
 	char	*res;
-	int		half_cooked;
+	long	half_cooked;
 	int		count;
 	int		bs;
 
