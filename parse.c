@@ -6,18 +6,33 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 16:07:22 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/15 19:22:37 by scoron           ###   ########.fr       */
+/*   Updated: 2018/12/16 00:49:48 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+void				parse_flags(t_ftp *p)
+{
+	while ((p->n = ft_strchri("# +-0", *p->format)) > -1 && ++p->format)
+		p->f |= (1 << p->n);
+	p->format--;
+	while (ft_isdigit(*(p->format)) && ++p->format)
+		p->min = 10*(p->min) + (*(p->format) - '0');
+	if (*(p->format) = '.')
+		while (ft_isdigit(*(p->format)) && ++p->format)
+			p->preci = 10*(p->preci) + (*(p->format) - '0');
+	while ((p->n = ft_strchri("hlL", *p->format)) > -1 && ++p->format)
+		p->f |= (1 << p->n);
+
+
+
+}
+
 static inline void	cs_not_found(t_ftp *p, char c)
 {
-	p->len_buf++;
-	p->len_buf--;
-	if (c == 'A')
-		return ;
+	(void)c;
+	buffer(p, 1, p->format);
 	return ;
 }
 
@@ -28,31 +43,30 @@ static inline void	fill_func(void (**func)(t_ftp *p, char c))
 	i = -1;
 	while (++i < 257)
 		func[i] = &cs_not_found;
-	func['d'] = &cs_nbr;
-	func['i'] = &cs_nbr;
-	func['D'] = &cs_nbr;
-	func['b'] = &cs_nbr;
-	func['B'] = &cs_nbr;
-	func['o'] = &cs_nbr;
-	func['O'] = &cs_nbr;
-	func['u'] = &cs_nbr;
-	func['U'] = &cs_nbr;
-	func['x'] = &cs_nbr;
-	func['X'] = &cs_nbr;
-	func['f'] = &cs_nbr;
-	func['F'] = &cs_nbr;
-	func['S'] = &cs_nbr;
-	func['c'] = &cs_nbr;
-	func['C'] = &cs_nbr;
-	func['n'] = &cs_nbr;
-	func['m'] = &cs_nbr;
-	func['p'] = &cs_nbr;
+	func['d'] = &cs_int;
+	func['D'] = &cs_int;
+	func['i'] = &cs_int;
+	func['o'] = &cs_int;
+	func['O'] = &cs_int;
+	func['u'] = &cs_int;
+	func['U'] = &cs_int;
+	func['x'] = &cs_int;
+	func['X'] = &cs_int;
+	func['c'] = &cs_char;
+	func['s'] = &cs_str;
+
+	func['C'] = &cs_char;
+	func['S'] = &cs_int;
+	func['p'] = &cs_int;
 }
 
 void				parse_options(t_ftp *p)
 {
 	static void (*func[256])(t_ftp *p, char c);
 
+	p->min = 0;
+	p->preci = 0;
+	parse_flags(t_ftp *p);
 	if (!func[0])
 		fill_func(func);
 	(p->format)++;
