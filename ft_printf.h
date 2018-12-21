@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:24:04 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/15 23:46:48 by scoron           ###   ########.fr       */
+/*   Updated: 2018/12/21 21:14:16 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # define F_WILDCARD		(1 << 5)
 # define F_UPCASE		(1 << 6)
 # define F_SHORT		(1 << 7)
-# define F_SHORT2		(1 << 8)
-# define F_LONG			(1 << 9)
-# define F_LONG2		(1 << 10)
+# define F_LONG			(1 << 8)
+# define F_LONG2		(1 << 9)
+# define F_CHAR			(1 << 10)
 # define F_INTMAX		(1 << 11)
 # define F_SIZE_T		(1 << 12)
 # define F_MIN_LEN		(1 << 13)

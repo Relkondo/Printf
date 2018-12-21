@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 16:07:22 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/16 00:49:48 by scoron           ###   ########.fr       */
+/*   Updated: 2018/12/21 22:18:01 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ void				parse_flags(t_ftp *p)
 	p->format--;
 	while (ft_isdigit(*(p->format)) && ++p->format)
 		p->min = 10*(p->min) + (*(p->format) - '0');
-	if (*(p->format) = '.')
+	if (*(p->format) = '.' && ++p->format)
 		while (ft_isdigit(*(p->format)) && ++p->format)
 			p->preci = 10*(p->preci) + (*(p->format) - '0');
-	while ((p->n = ft_strchri("hlL", *p->format)) > -1 && ++p->format)
-		p->f |= (1 << p->n);
-
-
-
+	if ((p->n = ft_strchri("hlL", *(p->format))) > -1 && ++p->format)
+		p->f |= (1 << (p->n + 7));
+	if ((p->n = ft_strchri("lh", *(p->format))) > -1 && ++p->format)
+		p->f |= (1 << (p->n + 9));
 }
 
 static inline void	cs_not_found(t_ftp *p, char c)
@@ -69,6 +68,5 @@ void				parse_options(t_ftp *p)
 	parse_flags(t_ftp *p);
 	if (!func[0])
 		fill_func(func);
-	(p->format)++;
 	func[(int)*(p->format)](p, *(p->format));
 }

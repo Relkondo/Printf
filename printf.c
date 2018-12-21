@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:20:06 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/15 22:15:15 by scoron           ###   ########.fr       */
+/*   Updated: 2018/12/21 20:49:32 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_printf(char *format, ...)
 	va_start(p.va, format);
 	while (*(p.format))
 	{
-		if (*(p.format) == '%')
+		if (*(p.format) == '%' && p.format++)
 			parse_options(&p);
 		else
 			buffer(&p, 1, p.format);
