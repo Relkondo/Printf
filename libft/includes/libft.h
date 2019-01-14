@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 08:34:59 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/21 21:35:02 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/14 18:07:08 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ char				*ft_strshorten(char **s, int start, int len);
 int					get_next_line(const int fd, char **line);
 int					ft_power(int nbr, int power);
 void				ft_putstab(char **tab);
+void				ft_align_right(char *str);
 
 #endif

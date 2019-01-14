@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/21 22:29:45 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/14 18:21:51 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,58 +25,55 @@ int			calculate_size(t_ftp *p, char *res, char c)
 		size += 1;
 	if ((c == 'x' || c == 'X' || c == 'o') && (p->f & F_SHARP))
 		size += (c == 'o') ? 1 : 2;
-	if (c == 's' && p->preci < len)
-		size += p->preci;
-	else if (c == 'f')
+	if (c == 'f')
 		size += p->preci + ft_strnlen(res, '.');
-	else if (p->preci > len)
-		size += p->preci;
+	else if (c == 's')
+		p->preci > len ? size += len : size += p->preci;
 	else
-		size += len;
+		p->preci > len ? size += p->preci : size += len;
 	if (size < p->min)
 		size = p->min;
 	if (!(res2 = ft_strnew(size)))
 		return (0);
+	ft_bzero(res2, size);
 	return (res2);
 }
 
 char		*flags_impact(t_ftp *p, char *res, char c)
 {
 	char	*res2;
-	size_t	len;
 	int		i;
+	int		j;
 
-	len = ft_strlen(res);
 	res2 = calculate_size(p, res, c);
 	i = 0;
 	if ((p->f & F_SPACE) && res[0] != '-')
 		res2[i++] = (p->f & F_PLUS) ? '+' : ' ';
-	if (c == 'o' && (p->f & F_SHARP))
-		res2[i++] = '0';
-	if ((c == 'x' || c == 'X') && (p->f & F_SHARP))
+	if ((c == 'x' || c == 'X' || c == 'o') && (p->f & F_SHARP))
 	{
 		res2[i++] = '0';
-		res2[i++] = c;
+		c != 'o' ? res2[i++] = c : ;
 	}
-	while (p->preci > len && c != 's' && c != 'f' && c != 'c' && c != 'p')
-	{
+	while (&& c != 's' && c != 'f' && c != 'c' && c != 'p'
+			&& p->preci-- > ft_strlen(res))
 		res2[i++] = '0';
-		p->preci--;
-	}
-	while (len--)
-		res2[i + len] = res[len];
-	i += ft_strlen(res);
-
-//manque le '.' potentiel et les chiffres apres decimal, plus la taille minimum si s, plus les zeros, etc 
-	if (c == 's' && p->preci < len)
-		size += p->preci;
-	else if (c == 'f')
-		size += p->preci + ft_strnlen(res, '.');
-	else if (p->preci > len)
-		size += p->preci;
-	else
-		size += len;
+	j = -1;
+	while (res[++j] && res2[i + j])
+		res2[i + j] = res[j];
+	i += j;
+	if (c == 'f' && (j = ft_strchr(res, '.')) == -1 && p->preci > 0
+			&& res2[i] && res2[++i])
+		res2[i] = '.';
+	j++;
+	while (c == 'f' && p->preci-- > (ft_strlen(res) - j) && res2[i] && res2[++i])
+		res2[i] = '0';
+	while (res[i] && res2[++i] && (!(p->f | F_ZERO) || (p->f | F_MINUS)))
+		res2[i] = ' ';
+	if (p->f | F_MINUS)
+		ft_align_right(res2);
 }
+
+//doit prendre en compte les flags hhll (et L pour f) ainsi que %%
 
 void		cs_int(t_ftp *p, char c)
 {

@@ -6,7 +6,7 @@
 #    By: scoron <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:44:30 by scoron            #+#    #+#              #
-#    Updated: 2018/12/15 19:57:55 by scoron           ###   ########.fr        #
+#    Updated: 2019/01/14 18:07:41 by scoron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ SRCS = ft_memset.c \
 	   get_next_line.c \
 	   ft_power.c \
 	   ft_putstab.c \
+	   ft_align_right.c \
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 16:07:22 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/21 22:18:01 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/14 16:24:57 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ void				parse_flags(t_ftp *p)
 		p->f |= (1 << (p->n + 7));
 	if ((p->n = ft_strchri("lh", *(p->format))) > -1 && ++p->format)
 		p->f |= (1 << (p->n + 9));
+	if ((p->n = ft_strchri("lh", *(p->format))) > -1 && ++p->format)
+		p->f |= (1 << (p->n + 9));
+//check if n is initialized
+//if hh or ll, two flags are activated
 }
 
 static inline void	cs_not_found(t_ftp *p, char c)
