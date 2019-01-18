@@ -6,18 +6,18 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/14 18:21:51 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/19 00:36:43 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-int			calculate_size(t_ftp *p, char *res, char c)
+char		*calculate_size(t_ftp *p, char *res, char c)
 {
 	char	*res2;
 	int		size;
-	int		len;
+	size_t	len;
 
 	len = ft_strlen(res);
 	size = 0;
@@ -28,14 +28,14 @@ int			calculate_size(t_ftp *p, char *res, char c)
 	if (c == 'f')
 		size += p->preci + ft_strnlen(res, '.');
 	else if (c == 's')
-		p->preci > len ? size += len : size += p->preci;
+		p->preci > len ? (size += len) : (size += p->preci);
 	else
-		p->preci > len ? size += p->preci : size += len;
+		p->preci > len ? (size += p->preci) : (size += len);
 	if (size < p->min)
 		size = p->min;
 	if (!(res2 = ft_strnew(size)))
 		return (0);
-	ft_bzero(res2, size);
+	//printf("size : %d\n", size);
 	return (res2);
 }
 
@@ -52,16 +52,19 @@ char		*flags_impact(t_ftp *p, char *res, char c)
 	if ((c == 'x' || c == 'X' || c == 'o') && (p->f & F_SHARP))
 	{
 		res2[i++] = '0';
-		c != 'o' ? res2[i++] = c : ;
+		c != 'o' ? res2[i++] = c : 0 ;
 	}
-	while (&& c != 's' && c != 'f' && c != 'c' && c != 'p'
-			&& p->preci-- > ft_strlen(res))
+	while (c != 's' && c != 'f' && c != 'c' && c != 'p'
+			&& p->preci > 0 && p->preci-- > ft_strlen(res))
 		res2[i++] = '0';
 	j = -1;
-	while (res[++j] && res2[i + j])
+	while (res[++j])
+	{
 		res2[i + j] = res[j];
+	}
+	//printf("res : %s res2 : %s\n", res, res2);
 	i += j;
-	if (c == 'f' && (j = ft_strchr(res, '.')) == -1 && p->preci > 0
+	if (c == 'f' && (j = ft_strchri(res, '.')) == -1 && p->preci > 0
 			&& res2[i] && res2[++i])
 		res2[i] = '.';
 	j++;
@@ -71,6 +74,7 @@ char		*flags_impact(t_ftp *p, char *res, char c)
 		res2[i] = ' ';
 	if (p->f | F_MINUS)
 		ft_align_right(res2);
+	return (res2);
 }
 
 //doit prendre en compte les flags hhll (et L pour f) ainsi que %%
@@ -88,7 +92,9 @@ void		cs_int(t_ftp *p, char c)
 		res = ft_convert_base(res, "0123456789", "0123456789ABCDEF");
 	else if (c == 'x')
 		res = ft_convert_base(res, "0123456789", "0123456789abcdef");
+//	printf("res : %s\n", res);
 	res = flags_impact(p, res, c);
+//	printf("res : %s\n", res);
 	buffer(p, ft_strlen(res), res);
 }
 

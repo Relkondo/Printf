@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:24:04 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/14 18:01:12 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/18 15:56:44 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include <stdarg.h>
+# include <stdio.h>
 
 # define BUF_SIZE 16
 # define F_SHARP		(1 << 0)
@@ -43,7 +44,7 @@ typedef struct		s_ftp
 	int				len_buf;
 	int				n;
 	int				f;
-	int				preci;
+	size_t			preci;
 	int				min;
 }					t_ftp;
 

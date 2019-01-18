@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 16:07:22 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/14 18:22:23 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/18 16:25:55 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ void				parse_flags(t_ftp *p)
 {
 	while ((p->n = ft_strchri("# +-0", *p->format)) > -1 && ++p->format)
 		p->f |= (1 << p->n);
-	p->format--;
 	while (ft_isdigit(*(p->format)) && ++p->format)
 		p->min = 10*(p->min) + (*(p->format) - '0');
-	if (*(p->format) = '.' && ++p->format)
+	if (*(p->format) == '.' && ++p->format)
 		while (ft_isdigit(*(p->format)) && ++p->format)
 			p->preci = 10*(p->preci) + (*(p->format) - '0');
 	if ((p->n = ft_strchri("hlL", *(p->format))) > -1 && ++p->format)
@@ -69,7 +68,7 @@ void				parse_options(t_ftp *p)
 
 	p->min = 0;
 	p->preci = 0;
-	parse_flags(t_ftp *p);
+	parse_flags(p);
 	if (!func[0])
 		fill_func(func);
 	func[(int)*(p->format)](p, *(p->format));
