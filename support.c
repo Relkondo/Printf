@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/19 00:36:43 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/19 14:31:49 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,14 @@ char		*flags_impact(t_ftp *p, char *res, char c)
 	j++;
 	while (c == 'f' && p->preci-- > (ft_strlen(res) - j) && res2[i] && res2[++i])
 		res2[i] = '0';
-	while (res[i] && res2[++i] && (!(p->f | F_ZERO) || (p->f | F_MINUS)))
+	while (res2[++i] && (!(p->f | F_ZERO) || (p->f | F_MINUS)))
 		res2[i] = ' ';
 	if (p->f | F_MINUS)
 		ft_align_right(res2);
 	return (res2);
 }
 
-//doit prendre en compte les flags hhll (et L pour f) ainsi que %%
+//doit prendre en compte les flags hhll (et L pour f)
 
 void		cs_int(t_ftp *p, char c)
 {

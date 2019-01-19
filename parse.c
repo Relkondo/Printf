@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 16:07:22 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/18 16:25:55 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/19 14:31:52 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ void				parse_flags(t_ftp *p)
 	while ((p->n = ft_strchri("# +-0", *p->format)) > -1 && ++p->format)
 		p->f |= (1 << p->n);
 	while (ft_isdigit(*(p->format)) && ++p->format)
-		p->min = 10*(p->min) + (*(p->format) - '0');
+		p->min = 10*(p->min) + (*(p->format - 1) - '0');
+	//printf("pmin : %d\n", p->min);
 	if (*(p->format) == '.' && ++p->format)
 		while (ft_isdigit(*(p->format)) && ++p->format)
-			p->preci = 10*(p->preci) + (*(p->format) - '0');
+			p->preci = 10*(p->preci) + (*(p->format - 1) - '0');
 	if ((p->n = ft_strchri("hlL", *(p->format))) > -1 && ++p->format)
 		p->f |= (1 << (p->n + 7));
 	if ((p->n = ft_strchri("lh", *(p->format))) > -1 && ++p->format)
