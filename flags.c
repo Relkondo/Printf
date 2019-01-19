@@ -6,14 +6,14 @@
 /*   By: scoron <scoron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 16:58:12 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/19 17:45:58 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/19 17:48:32 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-char		*calculate_size(t_ftp *p, char *res, char c)
+char	*calculate_size(t_ftp *p, char *res, char c)
 {
 	char	*res2;
 	int		size;
@@ -36,7 +36,6 @@ char		*calculate_size(t_ftp *p, char *res, char c)
 	if (!(res2 = ft_strnew(size)))
 		return (0);
 	res2 = ft_memset(res2, '?', size);
-	//printf("size : %d\n", size);
 	return (res2);
 }
 
@@ -55,7 +54,8 @@ void	flag_preci(t_ftp *p, char *res, char *res2, char c)
 			&& res2[p->i] && res2[++p->i])
 		res2[p->i] = '.';
 	j++;
-	while (c == 'f' && p->preci-- > (ft_strlen(res) - j) && res2[p->i] && res2[++p->i])
+	while (c == 'f' && p->preci-- > (ft_strlen(res) - j)
+			&& res2[p->i] && res2[++p->i])
 		res2[p->i] = '0';
 	while (res2[p->i])
 		res2[p->i++] = ' ';

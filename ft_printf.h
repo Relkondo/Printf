@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:24:04 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/19 17:32:45 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/19 17:47:20 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 # define F_MIN_LEN		(1 << 13)
 # define F_PRECI		(1 << 14)
 # define F_POINTER		(1 << 15)
-
 
 typedef struct		s_ftp
 {

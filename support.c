@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/19 17:45:53 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/19 17:53:32 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char		*flags_impact(t_ftp *p, char *res, char c)
 	if ((c == 'x' || c == 'X' || c == 'o') && (p->f & F_SHARP))
 	{
 		res2[p->i++] = '0';
-		c != 'o' ? res2[p->i++] = c : 0 ;
+		c != 'o' ? res2[p->i++] = c : 0;
 	}
 	flag_preci(p, res, res2, c);
 	if (!(p->f & F_MINUS))

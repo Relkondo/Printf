@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 16:07:22 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/19 17:45:56 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/19 18:37:31 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void				parse_flags(t_ftp *p)
 	while ((p->n = ft_strchri("# +-0", *p->format)) > -1 && ++p->format)
 		p->f |= (1 << p->n);
 	while (ft_isdigit(*(p->format)) && ++p->format)
-		p->min = 10*(p->min) + (*(p->format - 1) - '0');
-	//printf("pf : %d\n", p->f);
+		p->min = 10 * (p->min) + (*(p->format - 1) - '0');
 	if (*(p->format) == '.' && ++p->format)
 		while (ft_isdigit(*(p->format)) && ++p->format)
 			p->preci = 10*(p->preci) + (*(p->format - 1) - '0');
@@ -28,7 +27,6 @@ void				parse_flags(t_ftp *p)
 		p->f |= (1 << (p->n + 9));
 	if ((p->n = ft_strchri("lh", *(p->format))) > -1 && ++p->format)
 		p->f |= (1 << (p->n + 9));
-//check if n is initialized
 //if hh or ll, two flags are activated
 }
 
@@ -41,7 +39,7 @@ static inline void	cs_not_found(t_ftp *p, char c)
 
 static inline void	fill_func(void (**func)(t_ftp *p, char c))
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 257)

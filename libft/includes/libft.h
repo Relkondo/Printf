@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 08:34:59 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/14 18:07:08 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/19 17:53:03 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int					ft_strchri(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strstr(const char *haystack, const char *needle);
 char				*ft_strnstr(const char *haystack,
-		const char *needle, size_t len);
+					const char *needle, size_t len);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *str);
@@ -97,11 +97,11 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_advanced_sort_wordtab(char **tab,
-		int (*cmp)(char *, char *));
+					int (*cmp)(char *, char *));
 char				*ft_convert_base(char *nbr, char *base_from, char *base_to);
 int					ft_any(char **tab, int (*f)(char*));
 void				ft_swap(char **tab, int i);
-long					ft_atoi_base(char *str, char *base);
+long				ft_atoi_base(char *str, char *base);
 char				*ft_strcutuntil(char **src, int c);
 char				*ft_strshorten(char **s, int start, int len);
 int					get_next_line(const int fd, char **line);
