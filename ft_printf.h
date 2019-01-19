@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:24:04 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/18 15:56:44 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/19 15:57:22 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 
-# define BUF_SIZE 16
+# define BUF_SIZE 100
 # define F_SHARP		(1 << 0)
 # define F_SPACE		(1 << 1)
 # define F_PLUS			(1 << 2)

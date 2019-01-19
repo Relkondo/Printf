@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/19 14:31:49 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/19 16:48:55 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char		*calculate_size(t_ftp *p, char *res, char c)
 		size = p->min;
 	if (!(res2 = ft_strnew(size)))
 		return (0);
+	res2 = ft_memset(res2, 'a', size);
 	//printf("size : %d\n", size);
 	return (res2);
 }
@@ -47,7 +48,7 @@ char		*flags_impact(t_ftp *p, char *res, char c)
 
 	res2 = calculate_size(p, res, c);
 	i = 0;
-	if ((p->f & F_SPACE) && res[0] != '-')
+	if (((p->f & F_SPACE) || (p->f & F_PLUS)) && res[0] != '-')
 		res2[i++] = (p->f & F_PLUS) ? '+' : ' ';
 	if ((c == 'x' || c == 'X' || c == 'o') && (p->f & F_SHARP))
 	{
@@ -59,10 +60,7 @@ char		*flags_impact(t_ftp *p, char *res, char c)
 		res2[i++] = '0';
 	j = -1;
 	while (res[++j])
-	{
 		res2[i + j] = res[j];
-	}
-	//printf("res : %s res2 : %s\n", res, res2);
 	i += j;
 	if (c == 'f' && (j = ft_strchri(res, '.')) == -1 && p->preci > 0
 			&& res2[i] && res2[++i])
@@ -70,13 +68,24 @@ char		*flags_impact(t_ftp *p, char *res, char c)
 	j++;
 	while (c == 'f' && p->preci-- > (ft_strlen(res) - j) && res2[i] && res2[++i])
 		res2[i] = '0';
-	while (res2[++i] && (!(p->f | F_ZERO) || (p->f | F_MINUS)))
-		res2[i] = ' ';
-	if (p->f | F_MINUS)
+	while (res2[i])
+		res2[i++] = ' ';
+	if (!(p->f & F_MINUS))
+	{
 		ft_align_right(res2);
+		i = p->f & F_SPACE ? 0 : -1;
+		while (p->f & F_ZERO && res2[++i] == ' ')
+			res2[i] = '0';
+		if (res2[i] == '+')
+		{
+			res2[0] = '+';
+			res2[i] = '0';
+		}
+	}
 	return (res2);
 }
 
+//printf("p->f : %d, i : %d, res2 : %s\n", p->f, i, res2);
 //doit prendre en compte les flags hhll (et L pour f)
 
 void		cs_int(t_ftp *p, char c)

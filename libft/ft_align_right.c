@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 18:05:50 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/17 13:44:45 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/19 15:49:45 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ void		ft_align_right(char *str)
 	int		i;
 	int		len;
 
-	len = ft_strlen(str);
 	i = 0;
-	while (len - i > 0 && str[len - i - 1] == ' ')
+	len = ft_strlen(str);
+	if (len == 0)
+		return ;
+	while (len > i && str[len - 1 - i] == ' ')
 		i++;
 	while (--len - i >= 0)
 		str[len] = str[len - i];
-	while (i)
-		str[i--] = ' ';
+	while (--i >= 0)
+		str[i] = ' ';
 }
