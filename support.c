@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/19 17:32:42 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/19 17:44:06 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ void		cs_int(t_ftp *p, char c)
 		res = ft_convert_base(res, "0123456789", "0123456789ABCDEF");
 	else if (c == 'x')
 		res = ft_convert_base(res, "0123456789", "0123456789abcdef");
-//	printf("res : %s\n", res);
 	res = flags_impact(p, res, c);
-//	printf("res : %s\n", res);
 	buffer(p, ft_strlen(res), res);
 }
 
