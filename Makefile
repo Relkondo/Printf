@@ -6,7 +6,7 @@
 #    By: scoron <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:44:30 by scoron            #+#    #+#              #
-#    Updated: 2019/01/18 15:55:09 by scoron           ###   ########.fr        #
+#    Updated: 2019/01/19 17:28:56 by scoron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS = main.c \
 	   parse.c \
 	   printf.c \
 	   support.c \
+	   flags.c \
 
 OBJS = $(SRCS:.c=.o)
 

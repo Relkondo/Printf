@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:24:04 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/19 15:57:22 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/19 17:32:45 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct		s_ftp
 	int				f;
 	size_t			preci;
 	int				min;
+	int				i;
 }					t_ftp;
 
 void				parse_options(t_ftp *p);
@@ -54,5 +55,8 @@ void				cs_int(t_ftp *p, char c);
 void				cs_char(t_ftp *p, char c);
 void				cs_str(t_ftp *p, char c);
 int					ft_printf(char *format, ...);
+void				flag_zero(t_ftp *p, char *res2);
+void				flag_preci(t_ftp *p, char *res, char *res2, char c);
+char				*calculate_size(t_ftp *p, char *res, char c);
 
 #endif
