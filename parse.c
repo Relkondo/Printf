@@ -27,7 +27,14 @@ void				parse_flags(t_ftp *p)
 		p->f |= (1 << (p->n + 9));
 	if ((p->n = ft_strchri("lh", *(p->format))) > -1 && ++p->format)
 		p->f |= (1 << (p->n + 9));
+}
 
+static inline void	cs_not_found(t_ftp *p, char c)
+{
+	(void)c;
+	buffer(p, 1, p->format);
+	return ;
+}
 
 static inline void	fill_func(void (**func)(t_ftp *p, char c))
 {

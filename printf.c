@@ -17,6 +17,7 @@ int		ft_printf(char *format, ...)
 	t_ftp		p;
 
 	p.format = format;
+	p.retv = 0;
 	p.len_buf = 0;
 	p.buf = ft_strnew(BUF_SIZE);
 	va_start(p.va, format);
@@ -31,7 +32,7 @@ int		ft_printf(char *format, ...)
 	va_end(p.va);
 	buffer(&p, -1, 0);
 	free(p.buf);
-	return (0);
+	return (p.retv);
 }
 
 void	buffer(t_ftp *p, int n, char *str)
@@ -41,6 +42,7 @@ void	buffer(t_ftp *p, int n, char *str)
 		p->buf[p->len_buf] = *str;
 		str++;
 		p->len_buf++;
+		p->retv++;
 		n--;
 	}
 	if (p->len_buf == BUF_SIZE || n < 0 || n > BUF_SIZE - p->len_buf)

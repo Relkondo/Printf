@@ -46,6 +46,7 @@ typedef struct		s_ftp
 	size_t			preci;
 	int				min;
 	int				i;
+	int				retv;
 }					t_ftp;
 
 void				parse_options(t_ftp *p);
