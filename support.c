@@ -43,6 +43,8 @@ long long			ft_arg(t_ftp *p)
 		else if (p->f & F_SHORT)
 				n = (p->f & F_CHAR) ? (long long)((char)va_arg(p->va, int)) :
 						(long long)((short)va_arg(p->va, int));
+		else
+				n = (long long)(va_arg(p->va, int));
 		return (n);
 }
 
@@ -58,6 +60,8 @@ unsigned long long	ft_uarg(t_ftp *p)
 				u = (unsigned long long)((unsigned char)va_arg(p->va, int));
 		else if (p->f & F_SHORT)
 				u = (unsigned long long)((unsigned short)va_arg(p->va, int));
+		else
+				u = (unsigned long long)(va_arg(p->va, int));
 		return (u);
 }
 
@@ -70,7 +74,7 @@ void		cs_int(t_ftp *p, char c)
 		n = (c == 'd' || c == 'D' || c == 'i') ? ft_arg(p) : 0;
 		u = (c == 'd' || c == 'D' || c == 'i') ? 0 : ft_uarg(p);
 		res = (c == 'd' || c == 'D' || c == 'i') ? ft_itoa(n) : ft_uitoa(u);
-		printf("res : %s\n", res);
+		printf("res : %s, n : %lld, u : %llu\n", res, n, u);
 		if (c == 'o' || c == 'O')
 				res = ft_uconvert_base(res, "0123456789", "01234567");
 		else if (c == 'X')
