@@ -73,9 +73,11 @@ SRCS = ft_memset.c \
 	   ft_lstmap.c \
 	   ft_advanced_sort_wordtab.c \
 	   ft_convert_base.c \
+	   ft_uconvert_base.c \
 	   ft_any.c \
 	   ft_swap.c \
 	   ft_atoi_base.c \
+	   ft_uatoi_base.c \
 	   ft_strcutuntil.c \
 	   ft_strshorten.c \
 	   get_next_line.c \

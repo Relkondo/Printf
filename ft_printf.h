@@ -29,11 +29,6 @@
 # define F_LONG			(1 << 8)
 # define F_LONG2		(1 << 9)
 # define F_CHAR			(1 << 10)
-# define F_INTMAX		(1 << 11)
-# define F_SIZE_T		(1 << 12)
-# define F_MIN_LEN		(1 << 13)
-# define F_PRECI		(1 << 14)
-# define F_POINTER		(1 << 15)
 
 typedef struct		s_ftp
 {

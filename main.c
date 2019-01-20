@@ -15,11 +15,11 @@
 
 int		main(void)
 {
-	int  k = 1600;
+	int  k = 0;
 	char *str = "Bijour";
 	char c = 'A';
-	ft_printf("%% dec : %hhd, octal : %0o, hxdec : %#08x, char : %c, et le str : %s\n", c, k, k, c, str);
-	printf("%% dec : %hhd, octal : %0o, hxdec : %#08x, char : %c, et le str : %s\n", c, k, k, c, str);
+	ft_printf("dec : %hhd, octal : %0o, hxdec : %lx, char : %c, et le str : %s\n", c, k, 4294967296, c, str);
+	printf("dec : %hhd, octal : %0o, hxdec : %lx, char : %c, et le str : %s\n", c, k, 4294967296, c, str);
 
 	return (0);
 }

@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static char	*ft_putint(char *res, unsigned int n, size_t len)
+static char	*ft_putint(char *res, unsigned long long n, size_t len)
 {
 	if (n == 0)
 		res[0] = '0';
@@ -24,11 +24,11 @@ static char	*ft_putint(char *res, unsigned int n, size_t len)
 	return (res);
 }
 
-char		*ft_uitoa(unsigned int n)
+char		*ft_uitoa(unsigned long long n)
 {
-	char			*res;
-	size_t			len;
-	unsigned int	k;
+	char				*res;
+	size_t				len;
+	unsigned long long	k;
 
 	len = 1;
 	k = n;

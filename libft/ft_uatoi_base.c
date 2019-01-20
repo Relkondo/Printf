@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int		ft_check_error_str(char *str, char *base)
+static int			ft_check_error_str(char *str, char *base)
 {
 	int i;
 	int j;
@@ -39,7 +39,7 @@ static int		ft_check_error_str(char *str, char *base)
 	return (1);
 }
 
-static int		ft_check_error_b(char *base)
+static int			ft_check_error_b(char *base)
 {
 	int i;
 	int j;
@@ -64,7 +64,7 @@ static int		ft_check_error_b(char *base)
 	return (0);
 }
 
-static int		ft_find(char *str, char *base, int i, int j)
+static int			ft_find(char *str, char *base, int i, int j)
 {
 	int r;
 
@@ -92,21 +92,17 @@ static int		ft_find(char *str, char *base, int i, int j)
 	}
 }
 
-long long		ft_atoi_base(char *str, char *base)
+unsigned long long	ft_uatoi_base(char *str, char *base)
 {
-	int			bs;
-	int			i;
-	int			sign;
-	long long	nb;
+	int					bs;
+	int					i;
+	unsigned long long	nb;
 
 	bs = 0;
 	nb = 0;
 	i = ft_check_error_b(base);
-	sign = ft_check_error_str(str, base);
-	if (i == 1 || sign == 0)
+	if (i == 1 || !(ft_check_error_str(str, base)))
 		return (0);
-	if (str[0] == '-')
-		sign = -1;
 	if (str[0] == '+' || str[0] == '-')
 		i++;
 	while (base[bs] != '\0')
@@ -116,5 +112,5 @@ long long		ft_atoi_base(char *str, char *base)
 		nb = (nb * bs) + ft_find(str, base, i, 0);
 		i++;
 	}
-	return (nb * sign);
+	return (nb);
 }

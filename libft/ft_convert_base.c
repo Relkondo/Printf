@@ -38,7 +38,7 @@ static int		ft_check_error_b(char *base)
 	return (0);
 }
 
-static int		ft_find(char *str, char *base, long i, int j)
+static int		ft_find(char *str, char *base, long long i, int j)
 {
 	int r;
 
@@ -68,10 +68,10 @@ static int		ft_find(char *str, char *base, long i, int j)
 
 char			*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
-	char	*res;
-	long	half_cooked;
-	int		count;
-	int		bs;
+	char		*res;
+	long long	half_cooked;
+	int			count;
+	int			bs;
 
 	if (ft_check_error_b(base_to) == 1 || ft_check_error_b(base_from) == 1)
 		return (NULL);
@@ -82,8 +82,8 @@ char			*ft_convert_base(char *nbr, char *base_from, char *base_to)
 	count = ft_find(0, 0, half_cooked, bs);
 	res = (char *)malloc(sizeof(char) * (count + 1));
 	res[count] = '\0';
-	if (half_cooked < 0)
-		res[0] = '-';
+	if (half_cooked <= 0)
+		res[0] = half_cooked == 0 ? '0' : '-';
 	if (half_cooked < 0)
 		half_cooked *= -1;
 	while (half_cooked > 0)

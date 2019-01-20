@@ -1,43 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi_base.c                                     :+:      :+:    :+:   */
+/*   ft_convert_base.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 18:52:00 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/15 20:58:34 by scoron           ###   ########.fr       */
+/*   Updated: 2018/12/15 21:18:21 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static int		ft_check_error_str(char *str, char *base)
-{
-	int i;
-	int j;
-	int check;
-
-	i = 0;
-	if (str == 0 || base == 0)
-		return (0);
-	while (str[i] != '\0')
-	{
-		j = 0;
-		check = 0;
-		while (base[j] != '\0')
-		{
-			if (base[j] == str[i] || str[i] == '+'
-					|| str[i] == '-')
-				check = 1;
-			j++;
-		}
-		if (check == 0)
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 static int		ft_check_error_b(char *base)
 {
@@ -45,7 +18,7 @@ static int		ft_check_error_b(char *base)
 	int j;
 
 	i = 0;
-	if (base == 0)
+	if (base == NULL)
 		return (1);
 	if (base[0] == '\0' || base[1] == '\0')
 		return (1);
@@ -64,7 +37,7 @@ static int		ft_check_error_b(char *base)
 	return (0);
 }
 
-static int		ft_find(char *str, char *base, int i, int j)
+static int		ft_find(char *str, char *base, unsigned long long i, int j)
 {
 	int r;
 
@@ -83,38 +56,38 @@ static int		ft_find(char *str, char *base, int i, int j)
 			i *= -1;
 			r++;
 		}
-		while (i >= j)
+		while (i >= (unsigned long long)j)
 		{
-			i /= j;
+			i /= (unsigned long long)j;
 			r++;
 		}
 		return (r);
 	}
 }
 
-long long		ft_atoi_base(char *str, char *base)
+char			*ft_uconvert_base(char *nbr, char *base_from, char *base_to)
 {
-	int			bs;
-	int			i;
-	int			sign;
-	long long	nb;
+	char				*res;
+	unsigned long long	half_cooked;
+	int					count;
+	int					bs;
 
+	if (ft_check_error_b(base_to) == 1 || ft_check_error_b(base_from) == 1)
+		return (NULL);
 	bs = 0;
-	nb = 0;
-	i = ft_check_error_b(base);
-	sign = ft_check_error_str(str, base);
-	if (i == 1 || sign == 0)
-		return (0);
-	if (str[0] == '-')
-		sign = -1;
-	if (str[0] == '+' || str[0] == '-')
-		i++;
-	while (base[bs] != '\0')
+	half_cooked = ft_atoi_base(nbr, base_from);
+	while (base_to[bs] != 0)
 		bs++;
-	while (str[i] != '\0' && str[i] != '+' && str[i] != '-')
+	count = ft_find(0, 0, half_cooked, bs);
+	res = (char *)malloc(sizeof(char) * (count + 1));
+	res[count] = '\0';
+	if (half_cooked == 0)
+		res[0] = 0;
+	while (half_cooked > 0)
 	{
-		nb = (nb * bs) + ft_find(str, base, i, 0);
-		i++;
+		res[count - 1] = base_to[half_cooked % bs];
+		half_cooked /= bs;
+		count--;
 	}
-	return (nb * sign);
+	return (res);
 }
