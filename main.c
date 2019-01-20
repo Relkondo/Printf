@@ -15,12 +15,12 @@
 
 int		main(void)
 {
-	int  k = 7;
-	int	 j = 10;
+	int  k = 0;
+	long long	 j = 4294967296;
 	char *str = "Bijour";
 	char c = 'A';
-	printf("dec : %hhd, octal : %0o, hxdec : %x, char : %c, et le str : %s\n", c, k, j, c, str);
-	ft_printf("dec : %hhd, octal : %0o, hxdec : %x, char : %c, et le str : %s\n", c, k, j, c, str);
+	printf("dec : %hhd, octal : %0o, hxdec : %llx, char : %c, et le str : %s\n", c, k, j, c, str);
+	ft_printf("dec : %hhd, octal : %0o, hxdec : %llx, char : %c, et le str : %s\n", c, k, j, c, str);
 
 	return (0);
 }

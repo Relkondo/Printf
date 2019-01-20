@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static int		ft_check_error_b(char *base)
 {
@@ -75,14 +76,14 @@ char			*ft_uconvert_base(char *nbr, char *base_from, char *base_to)
 	if (ft_check_error_b(base_to) == 1 || ft_check_error_b(base_from) == 1)
 		return (NULL);
 	bs = 0;
-	half_cooked = ft_atoi_base(nbr, base_from);
+	half_cooked = ft_uatoi_base(nbr, base_from);
 	while (base_to[bs] != 0)
 		bs++;
 	count = ft_find(0, 0, half_cooked, bs);
 	res = (char *)malloc(sizeof(char) * (count + 1));
 	res[count] = '\0';
 	if (half_cooked == 0)
-		res[0] = 0;
+		res[0] = '0';
 	while (half_cooked > 0)
 	{
 		res[count - 1] = base_to[half_cooked % bs];
