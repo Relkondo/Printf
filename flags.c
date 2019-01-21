@@ -6,36 +6,29 @@
 /*   By: scoron <scoron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 16:58:12 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/19 17:48:32 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/21 17:11:40 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-char	*calculate_size(t_ftp *p, char *res, char c)
+char		*flags_impact(t_ftp *p, char *res, char c)
 {
 	char	*res2;
-	int		size;
-	size_t	len;
 
-	len = ft_strlen(res);
-	size = 0;
-	if (((p->f & F_PLUS) || (p->f & F_SPACE)) && res[0] != '-')
-		size += 1;
+	res2 = calculate_size(p, res, c);
+	p->i = 0;
+	if (((p->f & F_SPACE) || (p->f & F_PLUS)) && (res[0] != '-' || c == 's' || c== 'c'))
+		res2[p->i++] = (p->f & F_PLUS) ? '+' : ' ';
 	if ((c == 'x' || c == 'X' || c == 'o') && (p->f & F_SHARP))
-		size += (c == 'o') ? 1 : 2;
-	if (c == 'f')
-		size += p->preci + ft_strnlen(res, '.');
-	else if (c == 's')
-		p->preci > len ? (size += len) : (size += p->preci);
-	else
-		p->preci > len ? (size += p->preci) : (size += len);
-	if (size < p->min)
-		size = p->min;
-	if (!(res2 = ft_strnew(size)))
-		return (0);
-	res2 = ft_memset(res2, '?', size);
+	{
+		res2[p->i++] = '0';
+		c != 'o' ? res2[p->i++] = c : 0;
+	}
+	flag_preci(p, res, res2, c);
+	if (!(p->f & F_MINUS))
+		flag_zero(p, res2, c);
 	return (res2);
 }
 
@@ -47,9 +40,11 @@ void	flag_preci(t_ftp *p, char *res, char *res2, char c)
 			&& p->preci > 0 && p->preci-- > ft_strlen(res))
 		res2[p->i++] = '0';
 	j = -1;
-	while (res[++j])
+	printf("res22 %s\n", res2);
+	while (res[++j] && res2[p->i + j])
 		res2[p->i + j] = res[j];
 	p->i += j;
+	printf("res23 %s\n", res2);
 	if (c == 'f' && (j = ft_strchri(res, '.')) == -1 && p->preci > 0
 			&& res2[p->i] && res2[++p->i])
 		res2[p->i] = '.';
@@ -59,22 +54,24 @@ void	flag_preci(t_ftp *p, char *res, char *res2, char c)
 		res2[p->i] = '0';
 	while (res2[p->i])
 		res2[p->i++] = ' ';
+	printf("res24 %s\n", res2);
 }
 
-void	flag_zero(t_ftp *p, char *res2)
+void	flag_zero(t_ftp *p, char *res2, char c)
 {
 	int i;
 
 	ft_align_right(res2);
+	printf("res25 %s\n", res2);
 	i = p->f & F_SPACE ? 0 : -1;
 	while (p->f & F_ZERO && res2[++i] == ' ')
 		res2[i] = '0';
-	if (res2[i] == '+')
+	if (res2[i] == '+' && c != 's' && c != 'c')
 	{
 		res2[0] = '+';
 		res2[i] = '0';
 	}
-	if (res2[i + 1] == 'x')
+	if (res2[i + 1] == 'x' && c != 's' && c != 'c')
 	{
 		res2[1] = 'x';
 		res2[i + 1] = '0';

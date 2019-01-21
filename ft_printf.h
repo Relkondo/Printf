@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:24:04 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/19 17:47:20 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/21 17:12:34 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ void				cs_int(t_ftp *p, char c);
 void				cs_char(t_ftp *p, char c);
 void				cs_str(t_ftp *p, char c);
 int					ft_printf(char *format, ...);
-void				flag_zero(t_ftp *p, char *res2);
+void				flag_zero(t_ftp *p, char *res2, char c);
 void				flag_preci(t_ftp *p, char *res, char *res2, char c);
 char				*calculate_size(t_ftp *p, char *res, char c);
+unsigned long long	ft_uarg(t_ftp *p);
+long long			ft_arg(t_ftp *p);
+char				*flags_impact(t_ftp *p, char *res, char c);
 
 #endif

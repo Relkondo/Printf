@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 18:52:00 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/15 21:18:21 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/21 15:45:25 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,6 @@ static int		ft_find(char *str, char *base, unsigned long long i, int j)
 	else
 	{
 		r = 1;
-		if (i < 0)
-		{
-			i *= -1;
-			r++;
-		}
 		while (i >= (unsigned long long)j)
 		{
 			i /= (unsigned long long)j;

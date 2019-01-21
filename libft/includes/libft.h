@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 08:34:59 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/19 17:53:03 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/21 15:48:03 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_advanced_sort_wordtab(char **tab,
 					int (*cmp)(char *, char *));
 char				*ft_convert_base(char *nbr, char *base_from, char *base_to);
-char				*ft_uconvert_base(char *nbr, char *base_from, char *base_to);
+char				*ft_uconvert_base(char *nbr, char *base_from,
+					char *base_to);
 int					ft_any(char **tab, int (*f)(char*));
 void				ft_swap(char **tab, int i);
 long long			ft_atoi_base(char *str, char *base);
