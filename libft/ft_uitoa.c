@@ -6,13 +6,13 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/15 21:01:43 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/21 19:21:44 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_putint(char *res, unsigned long long n, size_t len)
+static char	*ft_putint(char *res, uintmax_t n, size_t len)
 {
 	if (n == 0)
 		res[0] = '0';
@@ -24,11 +24,11 @@ static char	*ft_putint(char *res, unsigned long long n, size_t len)
 	return (res);
 }
 
-char		*ft_uitoa(unsigned long long n)
+char		*ft_uitoa(uintmax_t n)
 {
 	char				*res;
 	size_t				len;
-	unsigned long long	k;
+	uintmax_t			k;
 
 	len = 1;
 	k = n;
@@ -41,5 +41,37 @@ char		*ft_uitoa(unsigned long long n)
 		return (0);
 	res[len] = 0;
 	res = ft_putint(res, n, len);
+	return (res);
+}
+
+static char	*ft_lputint(char *res, unsigned long n, size_t len)
+{
+	if (n == 0)
+		res[0] = '0';
+	while (n != 0)
+	{
+		res[--len] = (n % 10) + '0';
+		n /= 10;
+	}
+	return (res);
+}
+
+char		*ft_ulitoa(unsigned long n)
+{
+	char				*res;
+	size_t				len;
+	long				k;
+
+	len = 1;
+	k = n;
+	while (k / 10 != 0)
+	{
+		len++;
+		k /= 10;
+	}
+	if (!(res = (char *)malloc((len + 1) * sizeof(char))))
+		return (0);
+	res[len] = 0;
+	res = ft_lputint(res, n, len);
 	return (res);
 }

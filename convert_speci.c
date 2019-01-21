@@ -6,7 +6,7 @@
 /*   By: scoron <scoron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 15:52:54 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/21 16:50:20 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/21 19:54:37 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 void		cs_int(t_ftp *p, char c)
 {
-	long long			n;
-	unsigned long long	u;
-	char				*res;
+	intmax_t	n;
+	uintmax_t	u;
+	char		*res;
 
 	n = (c == 'd' || c == 'D' || c == 'i') ? ft_arg(p) : 0;
 	u = (c == 'd' || c == 'D' || c == 'i') ? 0 : ft_uarg(p);
-	res = (c == 'd' || c == 'D' || c == 'i') ? ft_itoa(n) : ft_uitoa(u);
+	if (c == 'd' || c == 'D' || c == 'i')
+		res = ft_itoa(n);
+	else
+		res = p->f & F_INTMAX ? ft_uitoa(u) : ft_ulitoa(u);
 	//printf("res : %s, n : %lld, u : %llu\n", res, n, u);
 	if (c == 'o' || c == 'O')
 		res = ft_uconvert_base(res, "0123456789", "01234567");

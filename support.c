@@ -6,20 +6,21 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/21 17:12:20 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/21 20:38:33 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-char	*calculate_size(t_ftp *p, char *res, char c)
+char		*calculate_size(t_ftp *p, char *res, char c)
 {
 	char	*res2;
 	int		size;
 	size_t	len;
 
 	len = ft_strlen(res);
+	//printf("len : %zu\n", len);
 	size = 0;
 	if (((p->f & F_PLUS) || (p->f & F_SPACE)) && (res[0] != '-' || c == 's' || c == 'c'))
 		size += 1;
@@ -27,7 +28,7 @@ char	*calculate_size(t_ftp *p, char *res, char c)
 		size += (c == 'o') ? 1 : 2;
 	if (c == 'f')
 		size += p->preci + ft_strnlen(res, '.');
-	else if (c == 's' || c == 'c')
+	else if (c == 's' && p->preci != 0)
 		p->preci > len ? (size += len) : (size += p->preci);
 	else
 		p->preci > len ? (size += p->preci) : (size += len);
@@ -36,39 +37,44 @@ char	*calculate_size(t_ftp *p, char *res, char c)
 	if (!(res2 = ft_strnew(size)))
 		return (0);
 	res2 = ft_memset(res2, '?', size);
-	printf("res2 %s\n", res2);
+	//printf("res2 %s, size : %d\n", res2, size);
 	return (res2);
 }
 
-long long			ft_arg(t_ftp *p)
+t_val	*ft_arg(t_ftp *p)
 {
-	long long			n;
+	t_val		n;
 
 	n = 0;
-	if (p->f & F_LONG)
-		n = (p->f & F_LONG2) ? va_arg(p->va, long long) :
-			((long long)va_arg(p->va, long));
+	if (p->f & F_INTMAX)
+		n.im = va_arg(p->va, intmax_t);
+	else if (p->f & F_LONG2)
+		n.ll = va_arg(p->va, long long)
+	else if (p->f & F_LONG)
+		n.l = va_arg(p->va, long);
 	else if (p->f & F_SHORT)
-		n = (p->f & F_CHAR) ? (long long)((char)va_arg(p->va, int)) :
-			(long long)((short)va_arg(p->va, int));
+
+		n.s = p->f & F_CHAR ? (intmax_t)((char)va_arg(p->va, int))
+			: (intmax_t)((short)va_arg(p->va, int));
 	else
-		n = (long long)(va_arg(p->va, int));
-	return (n);
+		n. = (intmax_t)(va_arg(p->va, int));
+	return (&n);
 }
 
-unsigned long long	ft_uarg(t_ftp *p)
+uintmax_t	ft_uarg(t_ftp *p)
 {
-	unsigned long long	u;
+	uintmax_t	u;
 
 	u = 0;
-	if (p->f & F_LONG)
-		u = (p->f & F_LONG2) ? va_arg(p->va, unsigned long long) :
-			((unsigned long long)va_arg(p->va, unsigned long));
+	if (p->f & F_INTMAX)
+		u = va_arg(p->va, uintmax_t);
+	else if (p->f & F_LONG)
+		u = p->f & F_LONG2 ? (uintmax_t)va_arg(p->va, unsigned long long)
+			: ((uintmax_t)va_arg(p->va, unsigned long));
 	else if (p->f & F_CHAR)
-		u = (unsigned long long)((unsigned char)va_arg(p->va, int));
-	else if (p->f & F_SHORT)
-		u = (unsigned long long)((unsigned short)va_arg(p->va, int));
+		u = p->f & F_SHORT ? (uintmax_t)((unsigned char)va_arg(p->va, int))
+			: (uintmax_t)((unsigned short)va_arg(p->va, int));
 	else
-		u = (unsigned long long)(va_arg(p->va, int));
+		u = (long)va_arg(p->va, int);
 	return (u);
 }

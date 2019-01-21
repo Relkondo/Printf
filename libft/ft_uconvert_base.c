@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 18:52:00 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/21 15:45:25 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/21 18:55:22 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int		ft_check_error_b(char *base)
 	return (0);
 }
 
-static int		ft_find(char *str, char *base, unsigned long long i, int j)
+static int		ft_find(char *str, char *base, uintmax_t i, int j)
 {
 	int r;
 
@@ -52,9 +52,9 @@ static int		ft_find(char *str, char *base, unsigned long long i, int j)
 	else
 	{
 		r = 1;
-		while (i >= (unsigned long long)j)
+		while (i >= (uintmax_t)j)
 		{
-			i /= (unsigned long long)j;
+			i /= (uintmax_t)j;
 			r++;
 		}
 		return (r);
@@ -63,10 +63,10 @@ static int		ft_find(char *str, char *base, unsigned long long i, int j)
 
 char			*ft_uconvert_base(char *nbr, char *base_from, char *base_to)
 {
-	char				*res;
-	unsigned long long	half_cooked;
-	int					count;
-	int					bs;
+	char		*res;
+	uintmax_t	half_cooked;
+	int			count;
+	int			bs;
 
 	if (ft_check_error_b(base_to) == 1 || ft_check_error_b(base_from) == 1)
 		return (NULL);
