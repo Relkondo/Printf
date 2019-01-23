@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:24:04 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/21 19:56:22 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/23 15:49:27 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,33 +31,38 @@
 # define F_CHAR			(1 << 10)
 # define F_INTMAX		(1 << 11)
 
-typedef struct		s_ftp
+typedef struct				s_ftp
 {
-	char			*format;
-	va_list			va;
-	char			*buf;
-	int				len_buf;
-	int				n;
-	int				f;
-	size_t			preci;
-	int				min;
-	int				i;
-	int				retv;
-}					t_ftp;
+	char					*format;
+	va_list					va;
+	char					*buf;
+	int						len_buf;
+	int						n;
+	int						f;
+	size_t					preci;
+	int						min;
+	int						i;
+	int						retv;
+}							t_ftp;
 
-typedef	union		u_val
+typedef	union				u_val
 {
-	void			*p;
-	intmax_t		im;
-	char			c;
-	short			s;
-	int				i;
-	long			l;
-	long long		ll;
-	double			d;
-	long double		ld;
-
-}					t_val;
+	void					*p;
+	intmax_t				im;
+	char					c;
+	short					s;
+	int						i;
+	long					l;
+	long long				ll;
+	double					d;
+	long double				ld;
+	uintmax_t				uim;
+	unsigned char			uc;
+	unsigned short			us;
+	unsigned int			ui;
+	unsigned long			ul;
+	unsigned long long		ull;
+}							t_val;
 
 void				parse_options(t_ftp *p);
 void				buffer(t_ftp *p, int n, char *str);
@@ -68,8 +73,8 @@ int					ft_printf(char *format, ...);
 void				flag_zero(t_ftp *p, char *res2, char c);
 void				flag_preci(t_ftp *p, char *res, char *res2, char c);
 char				*calculate_size(t_ftp *p, char *res, char c);
-uintmax_t			ft_uarg(t_ftp *p);
-intmax_t			ft_arg(t_ftp *p);
+t_val				*ft_uarg(t_ftp *p);
+t_val				*ft_arg(t_ftp *p);
 char				*flags_impact(t_ftp *p, char *res, char c);
 
 #endif

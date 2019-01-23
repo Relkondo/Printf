@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/21 20:38:33 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/23 16:17:09 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,38 +43,42 @@ char		*calculate_size(t_ftp *p, char *res, char c)
 
 t_val	*ft_arg(t_ftp *p)
 {
-	t_val		n;
+	t_val		*n;
 
-	n = 0;
+	if (!(n = malloc(sizeof(t_val))))
+		return (0);
 	if (p->f & F_INTMAX)
-		n.im = va_arg(p->va, intmax_t);
+		n->im = va_arg(p->va, intmax_t);
 	else if (p->f & F_LONG2)
-		n.ll = va_arg(p->va, long long)
+		n->ll = va_arg(p->va, long long);
 	else if (p->f & F_LONG)
-		n.l = va_arg(p->va, long);
+		n->l = va_arg(p->va, long);
+	else if (p->f & F_CHAR)
+		n->c = (char)va_arg(p->va, int);
 	else if (p->f & F_SHORT)
-
-		n.s = p->f & F_CHAR ? (intmax_t)((char)va_arg(p->va, int))
-			: (intmax_t)((short)va_arg(p->va, int));
+		n->s = (short)va_arg(p->va, int);
 	else
-		n. = (intmax_t)(va_arg(p->va, int));
-	return (&n);
+		n->i = va_arg(p->va, int);
+	return (n);
 }
 
-uintmax_t	ft_uarg(t_ftp *p)
+t_val	*ft_uarg(t_ftp *p)
 {
-	uintmax_t	u;
+	t_val		*u;
 
-	u = 0;
+	if (!(u = malloc(sizeof(t_val))))
+		return (0);
 	if (p->f & F_INTMAX)
-		u = va_arg(p->va, uintmax_t);
+		u->uim = va_arg(p->va, uintmax_t);
+	else if (p->f & F_LONG2)
+		u->ull = va_arg(p->va, unsigned long long);
 	else if (p->f & F_LONG)
-		u = p->f & F_LONG2 ? (uintmax_t)va_arg(p->va, unsigned long long)
-			: ((uintmax_t)va_arg(p->va, unsigned long));
+		u->ul = va_arg(p->va, unsigned long);
 	else if (p->f & F_CHAR)
-		u = p->f & F_SHORT ? (uintmax_t)((unsigned char)va_arg(p->va, int))
-			: (uintmax_t)((unsigned short)va_arg(p->va, int));
+		u->uc = (unsigned char)va_arg(p->va, int);
+	else if (p->f & F_SHORT)
+		u->us = (unsigned short)va_arg(p->va, int);
 	else
-		u = (long)va_arg(p->va, int);
+		u->ui = va_arg(p->va, unsigned int);
 	return (u);
 }
