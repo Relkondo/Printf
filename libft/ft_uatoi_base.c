@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 18:52:00 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/21 19:23:26 by scoron           ###   ########.fr       */
+/*   Updated: 2018/12/15 20:58:34 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,11 @@ static int			ft_find(char *str, char *base, int i, int j)
 	}
 }
 
-uintmax_t	ft_uatoi_base(char *str, char *base)
+unsigned long long	ft_uatoi_base(char *str, char *base)
 {
-	int			bs;
-	int			i;
-	uintmax_t	nb;
+	int					bs;
+	int					i;
+	unsigned long long	nb;
 
 	bs = 0;
 	nb = 0;

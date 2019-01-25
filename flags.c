@@ -6,7 +6,7 @@
 /*   By: scoron <scoron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 16:58:12 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/21 19:58:25 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/23 19:55:26 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char		*flags_impact(t_ftp *p, char *res, char c)
 
 	res2 = calculate_size(p, res, c);
 	p->i = 0;
-	if (((p->f & F_SPACE) || (p->f & F_PLUS)) && (res[0] != '-' || c == 's' || c== 'c'))
+	if (((p->f & F_SPACE) || (p->f & F_PLUS)) && res[0] != '-' && c != 's' && c != 'c' && c != '%')
 		res2[p->i++] = (p->f & F_PLUS) ? '+' : ' ';
 	if ((c == 'x' || c == 'X' || c == 'o') && (p->f & F_SHARP))
 	{
@@ -40,11 +40,9 @@ void	flag_preci(t_ftp *p, char *res, char *res2, char c)
 			&& p->preci > 0 && p->preci-- > ft_strlen(res))
 		res2[p->i++] = '0';
 	j = -1;
-	printf("res22 %s\n", res2);
 	while (res[++j] && res2[p->i + j])
 		res2[p->i + j] = res[j];
 	p->i += j;
-	printf("res23 %s\n", res2);
 	if (c == 'f' && (j = ft_strchri(res, '.')) == -1 && p->preci > 0
 			&& res2[p->i] && res2[++p->i])
 		res2[p->i] = '.';
@@ -54,7 +52,6 @@ void	flag_preci(t_ftp *p, char *res, char *res2, char c)
 		res2[p->i] = '0';
 	while (res2[p->i])
 		res2[p->i++] = ' ';
-	printf("res24 %s\n", res2);
 }
 
 void	flag_zero(t_ftp *p, char *res2, char c)
@@ -62,7 +59,6 @@ void	flag_zero(t_ftp *p, char *res2, char c)
 	int i;
 
 	ft_align_right(res2);
-	printf("res25 %s\n", res2);
 	i = p->f & F_SPACE ? 0 : -1;
 	while (p->f & F_ZERO && res2[++i] == ' ')
 		res2[i] = '0';
@@ -71,7 +67,7 @@ void	flag_zero(t_ftp *p, char *res2, char c)
 		res2[0] = '+';
 		res2[i] = '0';
 	}
-	if (res2[i + 1] == 'x' && c != 's' && c != 'c')
+	if (res2[i + 1] == 'x' && c != 's' && c != 'c' && p->u_val != 0)
 	{
 		res2[1] = 'x';
 		res2[i + 1] = '0';
