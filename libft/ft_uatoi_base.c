@@ -92,11 +92,11 @@ static int			ft_find(char *str, char *base, int i, int j)
 	}
 }
 
-unsigned long long	ft_uatoi_base(char *str, char *base)
+uintmax_t	ft_uatoi_base(char *str, char *base)
 {
 	int					bs;
 	int					i;
-	unsigned long long	nb;
+	uintmax_t			nb;
 
 	bs = 0;
 	nb = 0;

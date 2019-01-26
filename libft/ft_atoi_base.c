@@ -92,12 +92,12 @@ static int		ft_find(char *str, char *base, int i, int j)
 	}
 }
 
-long long		ft_atoi_base(char *str, char *base)
+intmax_t		ft_atoi_base(char *str, char *base)
 {
 	int			bs;
 	int			i;
 	int			sign;
-	long long	nb;
+	intmax_t	nb;
 
 	bs = 0;
 	nb = 0;

@@ -29,6 +29,7 @@
 # define F_LONG			(1 << 8)
 # define F_LONG2		(1 << 9)
 # define F_CHAR			(1 << 10)
+# define F_INTMAX		(1 << 11)
 
 typedef struct		s_ftp
 {
@@ -42,8 +43,8 @@ typedef struct		s_ftp
 	int				min;
 	int				i;
 	int				retv;
-	long long		val;
-	unsigned long long	u_val;
+	intmax_t		val;
+	uintmax_t		u_val;
 }					t_ftp;
 
 void				parse_options(t_ftp *p);
@@ -55,8 +56,8 @@ int					ft_printf(char *format, ...);
 void				flag_zero(t_ftp *p, char *res2, char c);
 void				flag_preci(t_ftp *p, char *res, char *res2, char c);
 char				*calculate_size(t_ftp *p, char *res, char c);
-unsigned long long	ft_uarg(t_ftp *p);
-long long			ft_arg(t_ftp *p);
+uintmax_t			ft_uarg(t_ftp *p);
+intmax_t			ft_arg(t_ftp *p);
 char				*flags_impact(t_ftp *p, char *res, char c);
 
 #endif

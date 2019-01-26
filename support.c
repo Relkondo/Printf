@@ -39,12 +39,14 @@ char	*calculate_size(t_ftp *p, char *res, char c)
 	return (res2);
 }
 
-long long			ft_arg(t_ftp *p)
+intmax_t			ft_arg(t_ftp *p)
 {
-	long long			n;
+	intmax_t			n;
 
 	n = 0;
-	if (p->f & F_LONG)
+	if (p->f & F_INTMAX)
+		n = va_arg(p->va, intmax_t);
+	else if (p->f & F_LONG)
 		n = (p->f & F_LONG2) ? va_arg(p->va, long long) :
 			va_arg(p->va, long);
 	else if (p->f & F_SHORT)
@@ -55,12 +57,14 @@ long long			ft_arg(t_ftp *p)
 	return (n);
 }
 
-unsigned long long	ft_uarg(t_ftp *p)
+uintmax_t			ft_uarg(t_ftp *p)
 {
-	unsigned long long	u;
+	uintmax_t			u;
 
 	u = 0;
-	if (p->f & F_LONG)
+	if (p->f & F_INTMAX)
+		u = va_arg(p->va, uintmax_t);
+	else if (p->f & F_LONG)
 		u = (p->f & F_LONG2) ? va_arg(p->va, unsigned long long) :
 			va_arg(p->va, unsigned long);
 	else if (p->f & F_CHAR)

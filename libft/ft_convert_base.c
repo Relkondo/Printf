@@ -38,7 +38,7 @@ static int		ft_check_error_b(char *base)
 	return (0);
 }
 
-static int		ft_find(char *str, char *base, long long i, int j)
+static int		ft_find(char *str, char *base, intmax_t i, int j)
 {
 	int r;
 
@@ -69,7 +69,7 @@ static int		ft_find(char *str, char *base, long long i, int j)
 char			*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
 	char		*res;
-	long long	half_cooked;
+	intmax_t	half_cooked;
 	int			count;
 	int			bs;
 

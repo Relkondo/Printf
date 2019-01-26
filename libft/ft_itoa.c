@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static char	*ft_putint(char *res, long long n, size_t len)
+static char	*ft_putint(char *res, intmax_t n, size_t len)
 {
 	if (n == 0)
 		res[0] = '0';
@@ -34,11 +34,11 @@ static char	*ft_putint(char *res, long long n, size_t len)
 	return (res);
 }
 
-char		*ft_itoa(long long n)
+char		*ft_itoa(intmax_t n)
 {
 	char		*res;
 	size_t		len;
-	long long	k;
+	intmax_t	k;
 
 	len = 1;
 	k = n;

@@ -23,9 +23,7 @@ void				parse_flags(t_ftp *p)
 			p->preci = 10 * (p->preci) + (*(p->format - 1) - '0');
 	if ((p->n = ft_strchri("hlL", *(p->format))) > -1 && ++p->format)
 		p->f |= (1 << (p->n + 7));
-	if ((p->n = ft_strchri("lh", *(p->format))) > -1 && ++p->format)
-		p->f |= (1 << (p->n + 9));
-	if ((p->n = ft_strchri("lh", *(p->format))) > -1 && ++p->format)
+	if ((p->n = ft_strchri("lhj", *(p->format))) > -1 && ++p->format)
 		p->f |= (1 << (p->n + 9));
 }
 
