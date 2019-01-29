@@ -21,9 +21,10 @@ char	*calculate_size(t_ftp *p, char *res, char c)
 
 	len = ft_strlen(res);
 	size = 0;
-	if (((p->f & F_SPACE) || (p->f & F_PLUS)) && res[0] != '-' && c != 's' && c != 'c' && c != '%')
+	if (((p->f & F_SPACE) || (p->f & F_PLUS))
+		&& res[0] != '-' && c != 's' && c != 'c' && c != '%')
 		size += 1;
-	if ((c == 'x' || c == 'X' || c == 'o') && (p->f & F_SHARP) && p->u_val != 0)
+	if ((c == 'x' || c == 'X' || c == 'o') && p->f & F_SHARP)
 		size += (c == 'o') ? 1 : 2;
 	if (c == 'f')
 		size += p->preci + ft_strnlen(res, '.');

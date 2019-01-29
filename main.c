@@ -18,8 +18,8 @@ int		main(void)
 	int  k = 0;
 	char *str = "Bijour";
 	char c = 'A';
-	printf("dec : %jx, octal : %0o, hxdec : %x, intmax : %jd, char : %c, et le str : %s\n", 4294967295, k, -42, -9223372036854775807, c, str);
-	ft_printf("dec : %jx, octal : %0o, hxdec : %x, intmax : %jd, char : %c, et le str : %s\n", 4294967295, k, -42, -9223372036854775807, c, str);
+	printf("dec : %jx, octal : %0o, hxdec p  : %.x, %.0x intmax : %jd, char : %c, et le str : %s\n", 4294967295, k, 0, 0, 9223372036854775807, c, str);
+	ft_printf("dec : %jx, octal : %0o, hxdec p : %.x, %.0x intmax : %jd, char : %c, et le str : %s\n", 4294967295, k, 0, 0, 9223372036854775807, c, str);
 
 	return (0);
 }

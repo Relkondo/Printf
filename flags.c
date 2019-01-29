@@ -17,11 +17,17 @@ char		*flags_impact(t_ftp *p, char *res, char c)
 {
 	char	*res2;
 
+	if (p->val == 0 && p->u_val == 0 && c != '%')
+	{
+		p->f & F_PRECI && p->preci == 0 ? *res = 0 : 0;
+		p->f = p->f & F_SHARP ? p->f ^ F_SHARP : p->f;
+	}
 	res2 = calculate_size(p, res, c);
 	p->i = 0;
-	if (((p->f & F_SPACE) || (p->f & F_PLUS)) && res[0] != '-' && c != 's' && c != 'c' && c != '%')
+	if (((p->f & F_SPACE) || (p->f & F_PLUS))
+		&& res[0] != '-' && c != 's' && c != 'c' && c != '%')
 		res2[p->i++] = (p->f & F_PLUS) ? '+' : ' ';
-	if ((c == 'x' || c == 'X' || c == 'o') && (p->f & F_SHARP))
+	if ((c == 'x' || c == 'X' || c == 'o') && p->f & F_SHARP)
 	{
 		res2[p->i++] = '0';
 		c != 'o' ? res2[p->i++] = c : 0;

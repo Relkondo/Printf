@@ -16,7 +16,7 @@ static char	*ft_putint(char *res, intmax_t n, size_t len)
 {
 	if (n == 0)
 		res[0] = '0';
-	if (n == -2147483648)
+	if (n == -9223372036854775807)
 	{
 		res[--len] = '8';
 		n /= 10;

@@ -17,7 +17,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 
-# define BUF_SIZE 100
+# define BUF_SIZE 200
 # define F_SHARP		(1 << 0)
 # define F_SPACE		(1 << 1)
 # define F_PLUS			(1 << 2)
@@ -30,6 +30,8 @@
 # define F_LONG2		(1 << 9)
 # define F_CHAR			(1 << 10)
 # define F_INTMAX		(1 << 11)
+# define F_PRECI		(1 << 12)
+
 
 typedef struct		s_ftp
 {
@@ -52,6 +54,7 @@ void				buffer(t_ftp *p, int n, char *str);
 void				cs_int(t_ftp *p, char c);
 void				cs_char(t_ftp *p, char c);
 void				cs_str(t_ftp *p, char c);
+void				cs_point(t_ftp *p, char c);
 int					ft_printf(char *format, ...);
 void				flag_zero(t_ftp *p, char *res2, char c);
 void				flag_preci(t_ftp *p, char *res, char *res2, char c);

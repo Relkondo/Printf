@@ -19,8 +19,11 @@ void				parse_flags(t_ftp *p)
 	while (ft_isdigit(*(p->format)) && ++p->format)
 		p->min = 10 * (p->min) + (*(p->format - 1) - '0');
 	if (*(p->format) == '.' && ++p->format)
+	{
+		p->f |= F_PRECI;
 		while (ft_isdigit(*(p->format)) && ++p->format)
 			p->preci = 10 * (p->preci) + (*(p->format - 1) - '0');
+	}
 	if ((p->n = ft_strchri("hlL", *(p->format))) > -1 && ++p->format)
 		p->f |= (1 << (p->n + 7));
 	if ((p->n = ft_strchri("lhj", *(p->format))) > -1 && ++p->format)
@@ -42,26 +45,21 @@ static inline void	fill_func(void (**func)(t_ftp *p, char c))
 	while (++i < 257)
 		func[i] = &cs_not_found;
 	func['d'] = &cs_int;
-	func['D'] = &cs_int;
 	func['i'] = &cs_int;
 	func['o'] = &cs_int;
-	func['O'] = &cs_int;
 	func['u'] = &cs_int;
-	func['U'] = &cs_int;
 	func['x'] = &cs_int;
 	func['X'] = &cs_int;
 	func['c'] = &cs_char;
 	func['%'] = &cs_char;
 	func['s'] = &cs_str;
-
-	func['C'] = &cs_char;
-	func['S'] = &cs_int;
-	func['p'] = &cs_int;
+	func['p'] = &cs_point;
 }
 
 void				parse_options(t_ftp *p)
 {
 	static void (*func[256])(t_ftp *p, char c);
+	char 		c;
 
 	p->min = 0;
 	p->preci = 0;
@@ -71,5 +69,11 @@ void				parse_options(t_ftp *p)
 	parse_flags(p);
 	if (!func[0])
 		fill_func(func);
-	func[(int)*(p->format)](p, *(p->format));
+	c = *(p->format);
+	if ((p->n = ft_strchri("DOUCS", c)) > -1)
+	{
+		p->f |= F_LONG;
+		c += 32;
+	}
+	func[(int)(c)](p, c);
 }
