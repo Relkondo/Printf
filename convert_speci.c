@@ -18,9 +18,7 @@ void		cs_int(t_ftp *p, char c)
 
 	p->val = (c == 'd' || c == 'D' || c == 'i') ? ft_arg(p) : 0;
 	p->u_val = (c == 'd' || c == 'D' || c == 'i') ? 0 : ft_uarg(p);
-	printf("val, uval : %jd %jd\n", p->val, p->u_val);
-	res = (c == 'd' || c == 'D' || c == 'i')
-		? ft_itoa(p->val) : ft_uitoa(p->u_val);
+	res = (p->val == 0) ? ft_uitoa(p->u_val) : ft_itoa(p->val);
 	if (c == 'o' || c == 'O')
 		res = ft_uconvert_base(res, "0123456789", "01234567");
 	else if (c == 'X')

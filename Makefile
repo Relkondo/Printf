@@ -27,7 +27,7 @@ $(NAME) : lib $(OBJS)
 		@gcc -o $(NAME) $(OBJS) -I libft/includes -L libft/ -lft
 
 %.o : %.c
-	@gcc -Wall -Wextra -Werror -I libft/includes -c $< -o $@
+	@gcc -I libft/includes -c $< -o $@
 
 clean :
 	@make -C libft/ clean

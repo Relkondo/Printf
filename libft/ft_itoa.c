@@ -14,22 +14,17 @@
 
 static char	*ft_putint(char *res, intmax_t n, size_t len)
 {
+	uintmax_t	tmp;
+
 	if (n == 0)
 		res[0] = '0';
-	if (n == -9223372036854775807)
-	{
-		res[--len] = '8';
-		n /= 10;
-	}
+	tmp = n < 0 ? -n : n;
 	if (n < 0)
-	{
 		res[0] = '-';
-		n *= -1;
-	}
-	while (n != 0)
+	while (tmp != 0)
 	{
-		res[--len] = (n % 10) + '0';
-		n /= 10;
+		res[--len] = (tmp % 10) + '0';
+		tmp /= 10;
 	}
 	return (res);
 }
@@ -44,11 +39,8 @@ char		*ft_itoa(intmax_t n)
 	k = n;
 	if (n < 0)
 		len++;
-	while (k / 10 != 0)
-	{
-		len++;
+	while (k / 10 != 0 && len++)
 		k /= 10;
-	}
 	if (!(res = (char *)malloc((len + 1) * sizeof(char))))
 		return (0);
 	res[len] = 0;
