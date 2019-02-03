@@ -6,7 +6,7 @@
 /*   By: scoron <scoron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 16:58:12 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/03 21:14:33 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/04 00:28:15 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*flags_impact(t_ftp *p, char *res, char c)
 	res2 = 0;
 	if (c == 's' && !(res))
 		return (ft_strdup("(null)"));
-	if (p->val == 0 && p->u_val == 0 && c != '%')
+	if (p->val == 0 && p->u_val == 0 && c != '%' && c != 'f')
 	{
 		p->f & F_PRECI && p->preci == 0 ? *res = 0 : 0;
 		p->f & F_SHARP && c != 'o' ? p->f ^= F_SHARP : 0;
@@ -53,17 +53,20 @@ void	flag_preci(t_ftp *p, char *res, char *res2, char c)
 			&& pre > 0 && pre-- > len)
 		res2[p->i++] = '0';
 	j = -1;
+	printf("res : %s, i : %d, len : %zu, j : %d, pre : %zu, preci : %zu\n", res2, p->i, len, j, pre, p->preci);
 	while (res[++j] && res2[p->i + j]
-			&& (c != 's' || !(p->f & F_PRECI) || pre-- > 0))
+			&& c != 'f' && (c != 's' || !(p->f & F_PRECI) || pre-- > 0))
 		res2[p->i + j] = res[j];
+	while (res[++j] && res2[p->i + j]
+			&& pre-- > 0))
+		res2[p->i + j] = res[j];
+	printf("res : %s, i : %d, len : %zu, j : %d, pre : %zu, preci : %zu\n", res2, p->i, len, j, pre, p->preci);
 	p->i += j;
 	if (c == 'f' && (j = ft_strchri(res, '.')) == -1 && pre > 0
-			&& res2[p->i] && res2[++p->i])
-		res2[p->i] = '.';
-	j++;
-	while (c == 'f' && pre-- > (len - j)
-			&& res2[p->i] && res2[++p->i])
-		res2[p->i] = '0';
+			&& res2[p->i])
+		res2[p->i++] = '.';
+	while (c == 'f' && res2[p->i] && --pre > 0)
+		res2[p->i++] = '0';
 	while (res2[p->i])
 		res2[p->i++] = ' ';
 }
@@ -75,7 +78,7 @@ void	flag_zero(t_ftp *p, char *res2, char c)
 
 	ft_align_right(res2);
 	i = p->f & F_SPACE ? 0 : -1;
-	while (p->f & F_PRECI && i < (int)(ft_strlen(res2) - p->preci))
+	while (p->f & F_PRECI && i < (int)(ft_strlen(res2) - p->preci) && c != 'f')
 		i++;
 	while (p->f & F_ZERO && res2[++i] == ' ')
 		res2[i] = '0';

@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/03 21:52:46 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/03 23:05:03 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,12 @@ char		*calculate_size(t_ftp *p, char *res, char c)
 	return (res2);
 }
 
-//res = ft_dtoa2(flt, p, res, i)	
-char		*ft_dtoa(long double flt, t_ftp *p)
+char		*ft_put_decimal(long double flt, t_ftp *p, char *res, int i)
 {
-	char			*res;
-	size_t			j;
-	long double		tmp;
-	int				i;
+	size_t		j;
+	long double	tmp;
 
-	res = ft_strnew(48);
-	i = (flt < 0) ? 1 : 0;
-	flt < 1 && flt > -1 ? i++ : 0;
 	j = 0;
-	tmp = flt > 0 ? flt : -flt;
-	while ((long long)tmp && ++i)
-		tmp /= 10;
 	tmp = flt > 0 ? flt : -flt;
 	while (++j < p->preci + 1)
 	{
@@ -70,9 +61,25 @@ char		*ft_dtoa(long double flt, t_ftp *p)
 			res[i + j--] = '0';
 		res[i + j] += 1;
 	}
-	res[p->preci + i + 1] = '\0';
-	if (flt != (long long)flt)
-		res[i] = '.';
+	if (flt != (long long)flt && p->preci)
+		res[i++] = '.';
+	res[p->preci + i] = '\0';
+	return (res);
+}
+
+char		*ft_dtoa(long double flt, t_ftp *p)
+{
+	char			*res;
+	long double		tmp;
+	int				i;
+
+	res = ft_strnew(48);
+	i = (flt < 0) ? 1 : 0;
+	flt < 1 && flt > -1 ? i++ : 0;
+	tmp = flt > 0 ? flt : -flt;
+	while ((long long)tmp && ++i)
+		tmp /= 10;
+	res = ft_put_decimal(flt, p, res, i);
 	tmp = flt > 0 ? flt : -flt;
 	while ((long long)tmp)
 	{
@@ -80,6 +87,7 @@ char		*ft_dtoa(long double flt, t_ftp *p)
 		tmp /= 10;
 	}
 	res[0] = i == 0 ? res[0] : '-';
+	//printf("%s\n", res);
 	return (res);
 }
 

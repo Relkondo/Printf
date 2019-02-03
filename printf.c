@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:20:06 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/03 18:20:46 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/03 22:51:15 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int		ft_printf(char *format, ...)
 	t_ftp		p;
 
 	p.format = format;
-	p.fd = 1;
 	p.retv = 0;
 	p.len_buf = 0;
 	p.buf = ft_strnew(BUF_SIZE);
