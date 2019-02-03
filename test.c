@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "ft_printf.h"
 
 char		*ft_ditoa(long double flt)
 {
@@ -58,7 +59,8 @@ int		main(void)
 	double g = 10.56;
 	int i = 0;
 
-	res = ft_ditoa(f);
+	//res = ft_ditoa(f);
 	printf("float : %f, dec : %d, i : %d, res : %s", f, k, i, res);
+	ft_printf("voila : %d /n", k);
 	return (0);
 }

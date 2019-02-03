@@ -51,27 +51,30 @@ char		*ft_ditoa(long double flt)
 
 	i = (flt < 0) ? 1 : 0;
 	flt < 1 && flt > -1 ? i++ : 0;
-	j = (flt = (long long)flt) ? 0 : 1;
-	tmp = flt;
+	j = 0;
+	tmp = flt > 0 ? flt : -flt;
 	while ((long long)tmp && ++i)
 		tmp /= 10;
-	tmp = flt;
-	while ((tmp = tmp - (long long)tmp) && ++j)
-		tmp *= 10;
-	tmp = flt;
-	*res = ft_strnew(i + j);
-	while ((tmp = tmp - (long long)tmp))
+	tmp = flt > 0 ? flt : -flt;
+	tmp = flt > 0 ? flt : -flt;
+	if (!(res = malloc(sizeof(char) * (8 + i))))
+		return (0);
+	res[7 + i] = '\0';
+	while ((tmp = tmp - (long long)tmp) && ++j < 7)
 	{
 		tmp *= 10;
-		res[i + j++] = '0' + (long long)tmp;
+		res[i + j] = '0' + (long long)tmp;
 	}
-	flt = (long long)flt ? 0 : res[--i] = '.';
-	while ((long long)flt)
+	//if (res[i + j] <=
+	if (flt != (long long)flt)
+		res[i] = '.';
+	tmp = flt > 0 ? flt : -flt;
+	while ((long long)tmp)
 	{
-		res[--i] = (long long)flt % 10;
-		flt /= 10;
+		res[--i] = '0' + (long long)tmp % 10;
+		tmp /= 10;
 	}
-	i == 0 ? 0 : res[0] = '-';
+	res[0] = i == 0 ? res[0] : '-';
 	return (res);
 }
 
