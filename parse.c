@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 16:07:22 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/23 19:56:45 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/31 14:30:21 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void				parse_flags(t_ftp *p)
 	}
 	if ((p->n = ft_strchri("hlL", *(p->format))) > -1 && ++p->format)
 		p->f |= (1 << (p->n + 7));
-	if ((p->n = ft_strchri("lhj", *(p->format))) > -1 && ++p->format)
+	if ((p->n = ft_strchri("lhjz", *(p->format))) > -1 && ++p->format)
 		p->f |= (1 << (p->n + 9));
 }
 
@@ -50,16 +50,17 @@ static inline void	fill_func(void (**func)(t_ftp *p, char c))
 	func['u'] = &cs_int;
 	func['x'] = &cs_int;
 	func['X'] = &cs_int;
-	func['c'] = &cs_char;
 	func['%'] = &cs_char;
+	func['c'] = &cs_char;
 	func['s'] = &cs_str;
 	func['p'] = &cs_point;
+	func['f'] = &cs_float;
 }
 
 void				parse_options(t_ftp *p)
 {
-	static void (*func[256])(t_ftp *p, char c);
-	char 		c;
+	static void	(*func[256])(t_ftp *p, char c);
+	char		c;
 
 	p->min = 0;
 	p->preci = 0;

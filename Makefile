@@ -6,14 +6,13 @@
 #    By: scoron <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:44:30 by scoron            #+#    #+#              #
-#    Updated: 2019/01/21 15:55:51 by scoron           ###   ########.fr        #
+#    Updated: 2019/01/21 17:14:08 by scoron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = printf
+NAME = libftprintf.a
 
-SRCS = main.c \
-	   parse.c \
+SRCS = parse.c \
 	   printf.c \
 	   support.c \
 	   flags.c \
@@ -24,10 +23,12 @@ OBJS = $(SRCS:.c=.o)
 all : $(NAME)
 
 $(NAME) : lib $(OBJS)
-		@gcc -o $(NAME) $(OBJS) -I libft/includes -L libft/ -lft
+	@cp libft/libft.a ./$(NAME)
+	@ar rc $(NAME) $(OBJS)
+	@ranlib $(NAME)
 
 %.o : %.c
-	@gcc -I libft/includes -c $< -o $@
+	@clang -Wall -Wextra -Werror -I libft/includes -c $< -o $@
 
 clean :
 	@make -C libft/ clean
@@ -41,6 +42,12 @@ re : fclean all
 
 lib :
 	@make -C libft/
+
+comp : $(NAME) 
+	clang main.c -fsanitize=address -g $(NAME) -Iincludes
+	
+test : comp
+	./a.out
 
 push : fclean
 	@git add -A

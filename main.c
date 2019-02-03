@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 13:53:07 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/23 16:17:31 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/31 15:07:20 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ int		main(void)
 	int  k = 0;
 	char *str = "Bijour";
 	char c = 'A';
-	printf("dec : %jx, octal : %0o, hxdec p  : %.x, %.0x intmax : %jd, char : %c, et le str : %s\n", 4294967295, k, 0, 0, -9223372036854775808, c, str);
-	ft_printf("dec : %jx, octal : %0o, hxdec p : %.x, %.0x intmax : %jd, char : %c, et le str : %s\n", 4294967295, k, 0, 0, -9223372036854775808, c, str);
+	double f = 10;
 
+	f /= 3;
+	printf("float : %f, dec : %jx, octal : %0o, hxdec p  : %.x, %.0x intmax : %jd, char : %c, et le str : %s\n", f, 4294967295, k, 0, 0, -922337203685477580, c, "abc");
+	//ft_printf("float : %f, dec : %jx, octal : %0o, hxdec p : %.x, %.0x intmax : %jd, char : %c, et le str : %s\n", f, 4294967295, k, 0, 0, -922337203685477580, c, "abc");
 	return (0);
 }

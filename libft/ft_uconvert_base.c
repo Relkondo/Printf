@@ -72,6 +72,7 @@ char			*ft_uconvert_base(char *nbr, char *base_from, char *base_to)
 		return (NULL);
 	bs = 0;
 	half_cooked = ft_uatoi_base(nbr, base_from);
+	free(nbr);
 	while (base_to[bs] != 0)
 		bs++;
 	count = ft_find(0, 0, half_cooked, bs);

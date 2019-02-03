@@ -6,14 +6,14 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 18:52:00 by scoron            #+#    #+#             */
-/*   Updated: 2018/12/15 21:18:21 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/31 14:06:14 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-static int		ft_check_error_b(char *base)
+static int	ft_check_error_b(char *base)
 {
 	int i;
 	int j;
@@ -38,7 +38,7 @@ static int		ft_check_error_b(char *base)
 	return (0);
 }
 
-static int		ft_find(char *str, char *base, intmax_t i, int j)
+static int	ft_find(char *str, char *base, intmax_t i, int j)
 {
 	int r;
 
@@ -66,7 +66,7 @@ static int		ft_find(char *str, char *base, intmax_t i, int j)
 	}
 }
 
-char			*ft_convert_base(char *nbr, char *base_from, char *base_to)
+char		*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
 	char		*res;
 	intmax_t	half_cooked;
@@ -77,6 +77,7 @@ char			*ft_convert_base(char *nbr, char *base_from, char *base_to)
 		return (NULL);
 	bs = 0;
 	half_cooked = ft_atoi_base(nbr, base_from);
+	free(nbr);
 	while (base_to[bs] != 0)
 		bs++;
 	count = ft_find(0, 0, half_cooked, bs);
@@ -84,8 +85,7 @@ char			*ft_convert_base(char *nbr, char *base_from, char *base_to)
 	res[count] = '\0';
 	if (half_cooked <= 0)
 		res[0] = half_cooked == 0 ? '0' : '-';
-	if (half_cooked < 0)
-		half_cooked *= -1;
+	half_cooked < 0 ? half_cooked *= -1 : 0;
 	while (half_cooked > 0)
 	{
 		res[count - 1] = base_to[half_cooked % bs];

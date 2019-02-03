@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:24:04 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/23 19:42:16 by scoron           ###   ########.fr       */
+/*   Updated: 2019/01/31 15:17:54 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 
-# define BUF_SIZE 100
+# define BUF_SIZE 90
 # define F_SHARP		(1 << 0)
 # define F_SPACE		(1 << 1)
 # define F_PLUS			(1 << 2)
@@ -30,8 +30,8 @@
 # define F_LONG2		(1 << 9)
 # define F_CHAR			(1 << 10)
 # define F_INTMAX		(1 << 11)
-# define F_PRECI		(1 << 12)
-
+# define F_SIZET		(1 << 12)
+# define F_PRECI		(1 << 13)
 
 typedef struct		s_ftp
 {
@@ -55,6 +55,7 @@ void				cs_int(t_ftp *p, char c);
 void				cs_char(t_ftp *p, char c);
 void				cs_str(t_ftp *p, char c);
 void				cs_point(t_ftp *p, char c);
+void				cs_float(t_ftp *p, char c);
 int					ft_printf(char *format, ...);
 void				flag_zero(t_ftp *p, char *res2, char c);
 void				flag_preci(t_ftp *p, char *res, char *res2, char c);
@@ -62,5 +63,6 @@ char				*calculate_size(t_ftp *p, char *res, char c);
 uintmax_t			ft_uarg(t_ftp *p);
 intmax_t			ft_arg(t_ftp *p);
 char				*flags_impact(t_ftp *p, char *res, char c);
+char				*ft_ditoa(long double flt);
 
 #endif
