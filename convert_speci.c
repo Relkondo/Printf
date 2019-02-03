@@ -6,7 +6,7 @@
 /*   By: scoron <scoron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 15:52:54 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/31 15:01:30 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/03 21:39:48 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ void		cs_float(t_ftp *p, char c)
 
 	(void)c;
 	flt = p->f & F_LONG2 ? va_arg(p->va, long double) : va_arg(p->va, double);
-	res = ft_ditoa(flt);
+	p->f & F_PRECI ? 0 : (p->preci = 6);
+	res = ft_dtoa(flt, p);
+	p->preci++;
 	res2 = flags_impact(p, res, c);
-	free(res);
 	buffer(p, ft_strlen(res2), res2);
 	free(res2);
 }

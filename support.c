@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/01 16:09:59 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/03 21:52:46 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,15 @@ char		*calculate_size(t_ftp *p, char *res, char c)
 	return (res2);
 }
 
-char		*ft_ditoa(long double flt)
+//res = ft_dtoa2(flt, p, res, i)	
+char		*ft_dtoa(long double flt, t_ftp *p)
 {
 	char			*res;
-	int				j;
+	size_t			j;
 	long double		tmp;
 	int				i;
 
+	res = ft_strnew(48);
 	i = (flt < 0) ? 1 : 0;
 	flt < 1 && flt > -1 ? i++ : 0;
 	j = 0;
@@ -56,16 +58,19 @@ char		*ft_ditoa(long double flt)
 	while ((long long)tmp && ++i)
 		tmp /= 10;
 	tmp = flt > 0 ? flt : -flt;
-	tmp = flt > 0 ? flt : -flt;
-	if (!(res = malloc(sizeof(char) * (8 + i))))
-		return (0);
-	res[7 + i] = '\0';
-	while ((tmp = tmp - (long long)tmp) && ++j < 7)
+	while (++j < p->preci + 1)
 	{
+		tmp = tmp - (long long)tmp;
 		tmp *= 10;
 		res[i + j] = '0' + (long long)tmp;
 	}
-	//if (res[i + j] <=
+	if ((long long)(tmp*10) % 10 > 4 && j--)
+	{
+		while (res[i + j] == '9')
+			res[i + j--] = '0';
+		res[i + j] += 1;
+	}
+	res[p->preci + i + 1] = '\0';
 	if (flt != (long long)flt)
 		res[i] = '.';
 	tmp = flt > 0 ? flt : -flt;

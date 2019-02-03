@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:24:04 by scoron            #+#    #+#             */
-/*   Updated: 2019/01/31 15:17:54 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/03 21:30:39 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct		s_ftp
 	char			*format;
 	va_list			va;
 	char			*buf;
+	int				fd;
 	int				len_buf;
 	int				n;
 	int				f;
@@ -63,6 +64,6 @@ char				*calculate_size(t_ftp *p, char *res, char c);
 uintmax_t			ft_uarg(t_ftp *p);
 intmax_t			ft_arg(t_ftp *p);
 char				*flags_impact(t_ftp *p, char *res, char c);
-char				*ft_ditoa(long double flt);
+char				*ft_dtoa(long double flt, t_ftp *p);
 
 #endif
