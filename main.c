@@ -18,9 +18,9 @@ int		main(void)
 	int  k = 0;
 	char *str = "Bijour";
 	char c = 'A';
-	double f = 10.4253;
+	double f = 10;
 
-	printf("float : %10.2f, dec : %14jx, octal : %0o, hxdec p  : %.x, %.0x intmax : %jd, char : %c, et le str : %s\n", f, 4294967295, k, 0, 0, -922337203685477580, c, "abc");
-	ft_printf("float : %10.2f, dec : %14jx, octal : %0o, hxdec p : %.x, %.0x intmax : %jd, char : %c, et le str : %s\n", f, 4294967295, k, 0, 0, -922337203685477580, c, "abc");
+	printf("float : %10f, dec : %14jx, octal : %0o, hxdec p  : %.x, %.0x intmax : %jd, char : %c, et le str : %s\n", f, 4294967295, k, 0, 0, -922337203685477580, c, "abc");
+	ft_printf("float : %10f, dec : %14jx, octal : %0o, hxdec p : %.x, %.0x intmax : %jd, char : %c, et le str : %s\n", f, 4294967295, k, 0, 0, -922337203685477580, c, "abc");
 	return (0);
 }

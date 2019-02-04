@@ -53,19 +53,18 @@ void	flag_preci(t_ftp *p, char *res, char *res2, char c)
 			&& pre > 0 && pre-- > len)
 		res2[p->i++] = '0';
 	j = -1;
-	printf("res : %s, i : %d, len : %zu, j : %d, pre : %zu, preci : %zu\n", res2, p->i, len, j, pre, p->preci);
 	while (res[++j] && res2[p->i + j]
-			&& c != 'f' && (c != 's' || !(p->f & F_PRECI) || pre-- > 0))
+			 && (c != 's' || !(p->f & F_PRECI) || pre-- > 0))
 		res2[p->i + j] = res[j];
-	while (res[++j] && res2[p->i + j]
-			&& pre-- > 0))
-		res2[p->i + j] = res[j];
-	printf("res : %s, i : %d, len : %zu, j : %d, pre : %zu, preci : %zu\n", res2, p->i, len, j, pre, p->preci);
 	p->i += j;
+	//printf("res : %s, res2 : %s, i : %d, len : %zu, j : %d, pre : %zu, preci : %zu\n", res, res2, p->i, len, j, pre, p->preci);
 	if (c == 'f' && (j = ft_strchri(res, '.')) == -1 && pre > 0
 			&& res2[p->i])
 		res2[p->i++] = '.';
-	while (c == 'f' && res2[p->i] && --pre > 0)
+	else if (c == 'f' && pre > 0)
+		pre -= ft_strlen(res) - ft_strchri(res, '.');
+//	printf("res : %s, res2 : %s, i : %d, len : %zu, j : %d, pre : %zu, preci : %zu\n", res, res2, p->i, len, j, pre, p->preci);
+	while (c == 'f' && res2[p->i] && pre && --pre > 0)
 		res2[p->i++] = '0';
 	while (res2[p->i])
 		res2[p->i++] = ' ';
