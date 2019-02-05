@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/03 23:05:03 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/05 22:24:06 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,61 +34,60 @@ char		*calculate_size(t_ftp *p, char *res, char c)
 		p->preci > len ? (size += len) : (size += p->preci);
 	else
 		p->preci > len ? (size += p->preci) : (size += len);
+	//printf("res : %s, size : %d, len : %zu, preci : %zu\n", res, size, len, p->preci);
 	if (size < p->min)
 		size = p->min;
 	if (!(res2 = ft_strnew(size)))
 		return (0);
 	res2 = ft_memset(res2, '?', size);
 	return (res2);
-}
+} 
 
-char		*ft_put_decimal(long double flt, t_ftp *p, char *res, int i)
+char		*ft_fill_dtoa(long long itg, int dot, t_ftp *p)
 {
-	size_t		j;
-	long double	tmp;
+	char			*res;
+	long long		tmp;
+	size_t			len;
 
-	j = 0;
-	tmp = flt > 0 ? flt : -flt;
-	while (++j < p->preci + 1)
+	tmp = itg;
+	len = itg == 0 ? p->preci + 1 : 1;
+	while (tmp /= 10)
+		len++;
+	dot == 0 ? 0 : (len += 1);
+	itg < 0 ? (len += 1) && (dot += dot == 0 ? 0 : 1) : 0;
+	tmp = itg > 0 ? itg : -itg;
+	res = ft_strnew(len);
+	while (len > 1)
 	{
-		tmp = tmp - (long long)tmp;
-		tmp *= 10;
-		res[i + j] = '0' + (long long)tmp;
+		if (dot && (int)len == dot + 1)
+			res[--len] = '.';
+		res[--len] = tmp % 10 + '0';
+		tmp /= 10;
 	}
-	if ((long long)(tmp*10) % 10 > 4 && j--)
-	{
-		while (res[i + j] == '9')
-			res[i + j--] = '0';
-		res[i + j] += 1;
-	}
-	if (flt != (long long)flt && p->preci)
-		res[i++] = '.';
-	res[p->preci + i] = '\0';
+	*res = itg < 0 ? '-' : tmp % 10 + '0';
+	//printf("res : %s, itg : %lld, len : %zu, dot : %d\n", res, itg, len, dot);
 	return (res);
 }
 
 char		*ft_dtoa(long double flt, t_ftp *p)
 {
-	char			*res;
-	long double		tmp;
-	int				i;
+	long long		itg;
+	int				dot;
+	int				prec;
 
-	res = ft_strnew(48);
-	i = (flt < 0) ? 1 : 0;
-	flt < 1 && flt > -1 ? i++ : 0;
-	tmp = flt > 0 ? flt : -flt;
-	while ((long long)tmp && ++i)
-		tmp /= 10;
-	res = ft_put_decimal(flt, p, res, i);
-	tmp = flt > 0 ? flt : -flt;
-	while ((long long)tmp)
-	{
-		res[--i] = '0' + (long long)tmp % 10;
-		tmp /= 10;
-	}
-	res[0] = i == 0 ? res[0] : '-';
-	//printf("%s\n", res);
-	return (res);
+	itg = (long long)flt;
+	prec = p->preci;
+	dot = p->preci == 0 ? 0 : 1;
+	while (dot && (itg /= 10))
+		dot++;
+	while (prec--)
+		flt *= 10;
+	itg = flt > 0 ? (long long)flt : -(long long)flt;
+	if ((long long)(flt * 10) % 10 > 4 || (long long)(flt * 10) % 10 < -4)
+		itg += 1;
+	itg *= flt > 0 ? 1 : -1;
+	//printf("itg : %lld, flt : %Lf, dot : %d\n", itg, flt, dot);
+	return (ft_fill_dtoa(itg, dot, p));
 }
 
 intmax_t	ft_arg(t_ftp *p)

@@ -6,7 +6,7 @@
 /*   By: scoron <scoron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 16:58:12 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/04 00:28:15 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/05 21:04:54 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ char	*flags_impact(t_ftp *p, char *res, char c)
 		res2[p->i++] = '0';
 		c != 'o' ? res2[p->i++] = c : 0;
 	}
+	//printf("res : %s, res2 : %s\n", res, res2);
 	flag_preci(p, res, res2, c);
-	if (!(p->f & F_MINUS))
-		flag_zero(p, res2, c);
+	flag_zero(p, res2, c);
 	return (res2);
 }
 
@@ -63,7 +63,8 @@ void	flag_preci(t_ftp *p, char *res, char *res2, char c)
 		res2[p->i++] = '.';
 	else if (c == 'f' && pre > 0)
 		pre -= ft_strlen(res) - ft_strchri(res, '.');
-//	printf("res : %s, res2 : %s, i : %d, len : %zu, j : %d, pre : %zu, preci : %zu\n", res, res2, p->i, len, j, pre, p->preci);
+	else if (c == 'f' && p->f & F_SHARP)
+		res2[p->i++] = '.';
 	while (c == 'f' && res2[p->i] && pre && --pre > 0)
 		res2[p->i++] = '0';
 	while (res2[p->i])
@@ -73,26 +74,33 @@ void	flag_preci(t_ftp *p, char *res, char *res2, char c)
 void	flag_zero(t_ftp *p, char *res2, char c)
 {
 	int		i;
+	int		j;
 	char	tmp;
 
-	ft_align_right(res2);
+	j = 0;
+	if (!(p->f & F_MINUS))
+		ft_align_right(res2);
 	i = p->f & F_SPACE ? 0 : -1;
 	while (p->f & F_PRECI && i < (int)(ft_strlen(res2) - p->preci) && c != 'f')
 		i++;
-	while (p->f & F_ZERO && res2[++i] == ' ')
+	while (p->f & F_ZERO && !(p->f & F_MINUS) && res2[++i] == ' ')
 		res2[i] = '0';
 	i < 0 ? i = 0 : 0;
 	while (res2[i] == '0')
 		i++;
+	//printf("res2 : %s, i : %d, preci : %zu\n", res2, i, p->preci);
 	if ((res2[i] == '+' || res2[i] == '-') && c != 's' && c != 'c')
 	{
 		tmp = res2[i];
 		res2[i] = '0';
-		res2[0] = tmp;
+		while (res2[j] == ' ')
+			j++;
+		res2[j] = tmp;
 	}
-	if (res2[i] == 'x' && c != 's' && c != 'c' && p->u_val != 0)
+	if ((res2[i] == 'x' || res2[i] == 'X') && c != 's' && c != 'c' && p->u_val != 0)
 	{
+		tmp = res2[i];
 		res2[i] = '0';
-		res2[1] = 'x';
+		res2[1] = tmp;
 	}
 }
