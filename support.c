@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/09 22:43:51 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/09 23:09:09 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void			print_do(t_ftp *p, long double flt)
 		itg += 1;
 	//printf("itg : %lld, flt : %Lf, dot : %d\n", itg, flt, dot);
 	putdouble(res, itg, dot, p);
-	flt == 0 && p->f & F_PREZERO ? 0 : buffer(p, ft_strlen(res), res);
+	buffer(p, ft_strlen(res), res);
 	p->f & F_MINUS ? padding(p, ' '): 0;
 }
 
