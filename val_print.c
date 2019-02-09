@@ -6,13 +6,13 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/09 20:43:09 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/09 21:43:19 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		putint(char *res, intmax_t n, size_t len)
+static void		putint(char *res, intmax_t n, size_t len)
 {
 	uintmax_t	tmp;
 
@@ -26,7 +26,7 @@ void		putint(char *res, intmax_t n, size_t len)
 	}
 }
 
-void		print_nu(t_ftp *p, intmax_t n)
+void			print_nu(t_ftp *p, intmax_t n)
 {
 	char		res[21];
 	size_t		len;
@@ -36,22 +36,21 @@ void		print_nu(t_ftp *p, intmax_t n)
 	i = 0;
 	len = 1;
 	pre = p->preci;
-	if (!(p->f & F_MINUS))
-		p->f & F_ZERO && !(p->f & F_PRECI) ? padding(p, '0') : padding(p, ' ');
+	!(p->f & F_MINUS) && !(p->f & F_ZERO) ? padding(p, ' ') : 0;
 	p->f & F_SPACE && n >= 0 ? buffer(p, 1, " ") : 0;
 	p->f & F_PLUS && n >= 0 ? buffer(p, 1, "+") : 0;
 	n < 0 ? buffer(p, 1, "-") : 0;
+	p->f & F_ZERO ? padding(p, '0') : 0;
 	while (n / 10 != 0 && ++len)
 		n /= 10;
 	while (pre-- > (int)len)
 		buffer(p, 1, "0");
 	putint(res, p->val, len);
 	p->val == 0 && p->f & F_PREZERO ? 0 : buffer(p, (int)len, res);
-	if (p->f & F_MINUS)
-		padding(p, ' ');
+	p->f & F_MINUS ? padding(p, ' '): 0;
 }
 
-void		uputint_base(char *res, uintmax_t n, char *base_to)
+static void		uputint_base(char *res, uintmax_t n, char *base_to)
 {
 	int					count;
 	int					bs;
@@ -76,7 +75,7 @@ void		uputint_base(char *res, uintmax_t n, char *base_to)
 	}
 }
 
-void		print_ba(t_ftp *p, uintmax_t n, char *base, char c)
+void			print_ba(t_ftp *p, uintmax_t n, char *base, char c)
 {
 	char		res[23];
 	int			pre;
@@ -85,17 +84,16 @@ void		print_ba(t_ftp *p, uintmax_t n, char *base, char c)
 
 	i = 0;
 	pre = p->preci;
-	if (!(p->f & F_MINUS))
-		p->f & F_ZERO && !(p->f & F_PRECI) ? padding(p, '0') : padding(p, ' ');
-	p->f & F_PLUS ? buffer(p, 1, "+") : 0;
+	!(p->f & F_MINUS) && !(p->f & F_ZERO) ? padding(p, ' ') : 0;
 	p->f & F_SHARP && c == 'o' ? buffer(p, 1, "0") : 0;
+	p->u_val == 0 ? p->f &= ~F_SHARP : 0;
 	p->f & F_SHARP && c == 'x' ? buffer(p, 2, "0x") : 0;
 	p->f & F_SHARP && c == 'X' ? buffer(p, 2, "0X") : 0;
+	p->f & F_ZERO ? padding(p, '0') : 0;
 	uputint_base(res, n, base);
 	len = ft_strlen(res);
 	while (pre-- > (int)len)
 		buffer(p, 1, "0");
-	p->u_val == 0 && p->f & F_PREZERO ? 0 : buffer(p, (int)len, res);
-	if (p->f & F_MINUS)
-		padding(p, ' ');
+	p->val == 0 && p->f & F_PREZERO ? 0 : buffer(p, (int)len, res);
+	p->f & F_MINUS ? padding(p, ' '): 0;
 }
