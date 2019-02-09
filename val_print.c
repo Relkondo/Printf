@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/09 22:38:23 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/10 00:20:35 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,20 @@ void			print_ba(t_ftp *p, uintmax_t n, char *base, char c)
 	i = 0;
 	pre = p->preci;
 	!(p->f & F_MINUS) && !(p->f & F_ZERO) ? padding(p, ' ') : 0;
-	p->f & F_SHARP && c == 'o' ? buffer(p, 1, "0") : 0;
-	p->u_val == 0 ? p->f &= ~F_SHARP : 0;
+	p->u_val == 0 && (c == 'x' || c == 'X') ? p->f &= ~F_SHARP : 0;
 	p->f & F_SHARP && c == 'x' ? buffer(p, 2, "0x") : 0;
 	p->f & F_SHARP && c == 'X' ? buffer(p, 2, "0X") : 0;
 	p->f & F_ZERO ? padding(p, '0') : 0;
 	uputint_base(res, n, base);
 	len = ft_strlen(res);
+	if (p->f & F_SHARP && c == 'o' && n)
+	{
+		buffer(p, 1, "0");
+		pre -= pre > 0 ? 1 : 0;
+	}
 	while (pre-- > (int)len)
 		buffer(p, 1, "0");
-	p->val == 0 && p->f & F_PREZERO ? 0 : buffer(p, (int)len, res);
+	//printf("n : %ju, res : %s, len : %zu\n", n, res, len);
+	(p->f & F_PREZERO) && !(n) && !(p->f & F_SHARP) ? 0 : buffer(p, (int)len, res);
 	p->f & F_MINUS ? padding(p, ' '): 0;
 }

@@ -6,7 +6,7 @@
 /*   By: scoron <scoron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 16:58:12 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/09 21:48:45 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/09 23:15:35 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,6 @@ void	flag_preci(t_ftp *p, char *res, char *res2, char c)
 		res2[p->i + j] = res[j];
 	p->i += j;
 	//printf("res : %s, res2 : %s, i : %d, len : %zu, j : %d, pre : %zu, preci : %zu\n", res, res2, p->i, len, j, pre, p->preci);
-	if (c == 'f' && (j = ft_strchri(res, '.')) == -1 && pre > 0
-			&& res2[p->i])
-		res2[p->i++] = '.';
-	else if (c == 'f' && pre > 0)
-		pre -= ft_strlen(res) - ft_strchri(res, '.');
-	else if (c == 'f' && p->f & F_SHARP)
-		res2[p->i++] = '.';
-	while (c == 'f' && res2[p->i] && pre && --pre > 0)
-		res2[p->i++] = '0';
 	while (res2[p->i])
 		res2[p->i++] = ' ';
 }
