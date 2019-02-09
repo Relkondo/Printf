@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:24:04 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/09 20:31:30 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/09 22:30:59 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ char				*flags_impact(t_ftp *p, char *res, char c);
 char				*ft_dtoa(long double flt, t_ftp *p);
 int					size_nu(t_ftp *p, intmax_t n);
 int					size_ba(t_ftp *p, uintmax_t n, char c);
-void				print_ba(t_ftp *p, uintmax_t n, char *base, char c);
+int					size_do(t_ftp *p, long double flt);
 void				print_nu(t_ftp *p, intmax_t n);
+void				print_ba(t_ftp *p, uintmax_t n, char *base, char c);
+void				print_do(t_ftp *p, long double flt);
 
 #endif

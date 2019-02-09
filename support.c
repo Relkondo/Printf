@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/09 19:49:00 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/09 22:43:51 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ char		*calculate_size(t_ftp *p, char *res, char c)
 	if (((p->f & F_SPACE) || (p->f & F_PLUS))
 			&& res[0] != '-' && c != 's' && c != 'c' && c != '%' && c != 'u')
 		size += 1;
-	if ((c == 'x' || c == 'X' || c == 'o') && p->f & F_SHARP)
-		size += (c == 'o') ? 1 : 2;
 	if (res[0] == '-' && c != 's' && c != 'c' && c != '%' && c != 'f')
 		p->preci++;
 	if (c == 'f')
@@ -52,9 +50,8 @@ char		*calculate_size(t_ftp *p, char *res, char c)
 	return (res2);
 } 
 
-char		*ft_fill_dtoa(long long itg, int dot, t_ftp *p)
+static void		putdouble(char *res, long long itg, int dot, t_ftp *p)
 {
-	char			*res;
 	long long		tmp;
 	size_t			len;
 
@@ -63,30 +60,32 @@ char		*ft_fill_dtoa(long long itg, int dot, t_ftp *p)
 	while (tmp /= 10)
 		len++;
 	dot == 0 ? 0 : (len += 1);
-	itg < 0 ? (len += 1) && (dot += dot == 0 ? 0 : 1) : 0;
-	tmp = itg > 0 ? itg : -itg;
-	res = ft_strnew(len);
-	while (len > 1)
+	res[len] = '\0';
+	while (len > 0)
 	{
 		if (dot && (int)len == dot + 1)
 			res[--len] = '.';
-		res[--len] = tmp % 10 + '0';
-		tmp /= 10;
+		res[--len] = itg % 10 + '0';
+		itg /= 10;
 	}
-	*res = itg < 0 ? '-' : tmp % 10 + '0';
 	//printf("res : %s, itg : %lld, len : %zu, dot : %d\n", res, itg, len, dot);
-	return (res);
 }
 
-char		*ft_dtoa(long double flt, t_ftp *p)
+void			print_do(t_ftp *p, long double flt)
 {
+	char			res[48];
 	long long		itg;
 	int				dot;
 	int				prec;
 
 	itg = (long long)flt;
 	prec = p->preci;
-	dot = p->preci == 0 ? 0 : 1;
+	dot = p->preci == 0 && !(p->f & F_SHARP) ? 0 : 1;
+	!(p->f & F_MINUS) && !(p->f & F_ZERO) ? padding(p, ' ') : 0;
+	p->f & F_SPACE && flt >= 0 ? buffer(p, 1, " ") : 0;
+	p->f & F_PLUS && flt >= 0 ? buffer(p, 1, "+") : 0;
+	flt < 0 ? buffer(p, 1, "-") : 0;
+	p->f & F_ZERO ? padding(p, '0') : 0;
 	while (dot && (itg /= 10))
 		dot++;
 	while (prec--)
@@ -94,9 +93,10 @@ char		*ft_dtoa(long double flt, t_ftp *p)
 	itg = flt > 0 ? (long long)flt : -(long long)flt;
 	if ((long long)(flt * 10) % 10 > 4 || (long long)(flt * 10) % 10 < -4)
 		itg += 1;
-	itg *= flt > 0 ? 1 : -1;
 	//printf("itg : %lld, flt : %Lf, dot : %d\n", itg, flt, dot);
-	return (ft_fill_dtoa(itg, dot, p));
+	putdouble(res, itg, dot, p);
+	flt == 0 && p->f & F_PREZERO ? 0 : buffer(p, ft_strlen(res), res);
+	p->f & F_MINUS ? padding(p, ' '): 0;
 }
 
 intmax_t	ft_arg(t_ftp *p)

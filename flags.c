@@ -6,7 +6,7 @@
 /*   By: scoron <scoron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 16:58:12 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/09 20:30:58 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/09 21:48:45 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,6 @@ char	*flags_impact(t_ftp *p, char *res, char c)
 	if (((p->f & F_SPACE) || (p->f & F_PLUS))
 			&& res[0] != '-' && c != 's' && c != 'c' && c != '%' && c != 'u')
 		res2[p->i++] = (p->f & F_PLUS) ? '+' : ' ';
-	if ((c == 'x' || c == 'X' || c == 'o') && p->f & F_SHARP)
-	{
-		res2[p->i++] = '0';
-		c != 'o' ? res2[p->i++] = c : 0;
-	}
 	//printf("res : %s, res2 : %s\n", res, res2);
 	flag_preci(p, res, res2, c);
 	flag_zero(p, res2, c);
@@ -49,9 +44,6 @@ void	flag_preci(t_ftp *p, char *res, char *res2, char c)
 
 	len = ft_strlen(res);
 	pre = p->preci;
-	while (c != 's' && c != 'f' && c != 'c' && c != 'p'
-			&& pre > 0 && pre-- > len)
-		res2[p->i++] = '0';
 	j = -1;
 	while (res[++j] && res2[p->i + j]
 			 && (c != 's' || !(p->f & F_PRECI) || pre-- > 0))
