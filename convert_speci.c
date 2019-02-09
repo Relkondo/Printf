@@ -6,7 +6,7 @@
 /*   By: scoron <scoron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 15:52:54 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/03 23:22:01 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/09 20:13:22 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,25 @@
 
 void		cs_int(t_ftp *p, char c)
 {
-	char	*res;
-	char	*res2;
-
-	p->val = c == 'd' || c == 'D' || c == 'i' ? ft_arg(p) : 0;
-	p->u_val = c == 'd' || c == 'D' || c == 'i' ? 0 : ft_uarg(p);
-	res = (p->val == 0) ? ft_uitoa(p->u_val) : ft_itoa(p->val);
-	if (c == 'o' || c == 'O')
-		res = ft_uconvert_base(res, "0123456789", "01234567");
-	else if (c == 'X')
-		res = ft_uconvert_base(res, "0123456789", "0123456789ABCDEF");
-	else if (c == 'x')
-		res = ft_uconvert_base(res, "0123456789", "0123456789abcdef");
-	res2 = flags_impact(p, res, c);
-	free(res);
-	buffer(p, ft_strlen(res2), res2);
-	free(res2);
+	if (c == 'd' || c == 'D' || c == 'i')
+	{
+		p->val = ft_arg(p);
+		p->size = size_nu(p, p->val);
+		print_nu(p, p->val);
+	}
+	else
+	{
+		p->u_val = ft_uarg(p);
+		p->size = size_ba(p, p->u_val, c);
+		if (c == 'o' || c == 'O')
+			print_ba(p, p->u_val, "01234567", c);
+		else if (c == 'X')
+			print_ba(p, p->u_val, "0123456789ABCDEF", c);
+		else if (c == 'x')
+			print_ba(p, p->u_val, "0123456789abcdef", c);
+		else
+			print_ba(p, p->u_val, "0123456789", c);
+	}
 }
 
 void		cs_float(t_ftp *p, char c)

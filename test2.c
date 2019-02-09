@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 13:53:07 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/03 20:43:21 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/09 16:21:18 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include <stdlib.h>
 int		main(void)
 {
-	int  k = 30;
+	int  k = -6;
 	double f = 12346.6666666;
 	double g = 10.56;
 	int i = 0;
 
-	printf("float : %.60f, dec : %d, i : %d", f, k, i);
+	printf("float : %.60f, dec : %010.4d, i : %d", f, k, i);
 	return (0);
 }

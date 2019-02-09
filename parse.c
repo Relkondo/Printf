@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 16:07:22 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/03 23:06:08 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/09 20:37:07 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ void				parse_flags(t_ftp *p)
 		p->f |= (1 << (p->n + 7));
 	if ((p->n = ft_strchri("lhjz", *(p->format))) > -1 && ++p->format)
 		p->f |= (1 << (p->n + 9));
+	p->f & F_ZERO && p->f & F_MINUS ? p->f ^= F_ZERO : 0;
+	p->f & F_SPACE && p->f & F_PLUS ? p->f ^= F_SPACE : 0;
+	p->f & F_PRECI && p->preci == 0 ? p->f |= F_PREZERO : 0;
 }
 
 static inline void	cs_not_found(t_ftp *p, char c)
@@ -67,6 +70,7 @@ void				parse_options(t_ftp *p)
 	p->f = 0;
 	p->val = 0;
 	p->u_val = 0;
+	p->size = 0;
 	parse_flags(p);
 	if (!func[0])
 		fill_func(func);

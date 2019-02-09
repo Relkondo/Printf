@@ -6,12 +6,21 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/05 22:24:06 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/09 19:49:00 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
+
+void		padding(t_ftp *p, char c)
+{
+	char	str[1];
+
+	str[0] = c;
+	while (p->min-- > p->size)
+		buffer(p, 1, str);
+}
 
 char		*calculate_size(t_ftp *p, char *res, char c)
 {

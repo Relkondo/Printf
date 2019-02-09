@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:24:04 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/03 21:30:39 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/09 20:31:30 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define F_PLUS			(1 << 2)
 # define F_MINUS		(1 << 3)
 # define F_ZERO			(1 << 4)
-# define F_WILDCARD		(1 << 5)
+# define F_PREZERO		(1 << 5)
 # define F_UPCASE		(1 << 6)
 # define F_SHORT		(1 << 7)
 # define F_LONG			(1 << 8)
@@ -44,10 +44,11 @@ typedef struct		s_ftp
 	int				f;
 	size_t			preci;
 	int				min;
-	int				i;
+	int				size;
 	int				retv;
 	intmax_t		val;
 	uintmax_t		u_val;
+	int				i;
 }					t_ftp;
 
 void				parse_options(t_ftp *p);
@@ -59,11 +60,17 @@ void				cs_point(t_ftp *p, char c);
 void				cs_float(t_ftp *p, char c);
 int					ft_printf(char *format, ...);
 void				flag_zero(t_ftp *p, char *res2, char c);
+void				padding(t_ftp *p, char c);
+
 void				flag_preci(t_ftp *p, char *res, char *res2, char c);
 char				*calculate_size(t_ftp *p, char *res, char c);
 uintmax_t			ft_uarg(t_ftp *p);
 intmax_t			ft_arg(t_ftp *p);
 char				*flags_impact(t_ftp *p, char *res, char c);
 char				*ft_dtoa(long double flt, t_ftp *p);
+int					size_nu(t_ftp *p, intmax_t n);
+int					size_ba(t_ftp *p, uintmax_t n, char c);
+void				print_ba(t_ftp *p, uintmax_t n, char *base, char c);
+void				print_nu(t_ftp *p, intmax_t n);
 
 #endif
