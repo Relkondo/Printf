@@ -48,7 +48,6 @@ typedef struct		s_ftp
 	int				retv;
 	intmax_t		val;
 	uintmax_t		u_val;
-	int				i;
 }					t_ftp;
 
 void				parse_options(t_ftp *p);
@@ -59,15 +58,9 @@ void				cs_str(t_ftp *p, char c);
 void				cs_point(t_ftp *p, char c);
 void				cs_float(t_ftp *p, char c);
 int					ft_printf(char *format, ...);
-void				flag_zero(t_ftp *p, char *res2, char c);
 void				padding(t_ftp *p, char c);
-
-void				flag_preci(t_ftp *p, char *res, char *res2, char c);
-char				*calculate_size(t_ftp *p, char *res, char c);
 uintmax_t			ft_uarg(t_ftp *p);
 intmax_t			ft_arg(t_ftp *p);
-char				*flags_impact(t_ftp *p, char *res, char c);
-char				*ft_dtoa(long double flt, t_ftp *p);
 int					size_nu(t_ftp *p, intmax_t n);
 int					size_ba(t_ftp *p, uintmax_t n, char c);
 int					size_do(t_ftp *p, long double flt);

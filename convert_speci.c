@@ -50,52 +50,48 @@ void		cs_float(t_ftp *p, char c)
 void		cs_char(t_ftp *p, char c)
 {
 	char	d[2];
-	char	*str;
 
 	d[0] = c == '%' ? '%' : (char)va_arg(p->va, int);
 	d[1] = '\0';
+	p->size = 1;
+	if (!(p->f & F_MINUS))
+		p->f & F_ZERO ? padding(p, '0') : padding(p, ' ');
 	if (d[0] == '\0')
 	{
-		p->preci = 0;
-		str = flags_impact(p, d, c);
-		str[ft_strlen(str) - 1] = 0;
-		buffer(p, ft_strlen(str), str);
-		buffer(p, -1, str);
+		buffer(p, -1, 0);
 		write(1, d, 1);
 		p->retv++;
 	}
 	else
-	{
-		str = flags_impact(p, d, c);
-		buffer(p, ft_strlen(str), str);
-	}
-	free(str);
+		buffer(p, 1, d);
+	p->f & F_MINUS ? padding(p, ' '): 0;
 }
 
 void		cs_str(t_ftp *p, char c)
 {
 	char	*str;
+	size_t	len;
 
 	(void)c;
 	str = va_arg(p->va, char *);
-	str = flags_impact(p, str, c);
-	buffer(p, ft_strlen(str), str);
-	free(str);
+	len = str ? ft_strlen(str) : 6;
+	p->f & F_PRECI && p->preci < len ? len = p->preci : 0;
+	p->size = len;
+	if (!(p->f & F_MINUS))
+		p->f & F_ZERO ? padding(p, '0') : padding(p, ' ');
+	str ? buffer(p, len, str) : buffer(p, 6, "(null)");
+	p->f & F_MINUS ? padding(p, ' '): 0;
 }
 
 void		cs_point(t_ftp *p, char c)
 {
 	uintmax_t		*point;
-	char			*res;
-	char			*res2;
 
 	(void)c;
-	point = (uintmax_t *)va_arg(p->va, void *);
-	res = ft_uitoa(*point);
-	res = ft_uconvert_base(res, "0123456789", "0123456789abcdef");
+	p->f & F_ZERO && p->f & F_PRECI ? p->f ^= F_ZERO : 0;
 	p->f |= F_SHARP;
-	res2 = flags_impact(p, res, 'x');
-	free(res);
-	buffer(p, ft_strlen(res2), res2);
-	free(res2);
+	point = (uintmax_t *)va_arg(p->va, void *);
+	p->u_val = (uintmax_t)point;
+	p->size = size_ba(p, p->u_val, 'x');
+	print_ba(p, p->u_val, "0123456789abcdef", 'x');
 }

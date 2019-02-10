@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   support.c                                          :+:      :+:    :+:   */
+/*   float_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,44 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
-
-void		padding(t_ftp *p, char c)
-{
-	char	str[1];
-
-	str[0] = c;
-	while (p->min-- > p->size)
-		buffer(p, 1, str);
-}
-
-char		*calculate_size(t_ftp *p, char *res, char c)
-{
-	char	*res2;
-	int		size;
-	size_t	len;
-
-	len = ft_strlen(res);
-	size = 0;
-	if (((p->f & F_SPACE) || (p->f & F_PLUS))
-			&& res[0] != '-' && c != 's' && c != 'c' && c != '%' && c != 'u')
-		size += 1;
-	if (res[0] == '-' && c != 's' && c != 'c' && c != '%' && c != 'f')
-		p->preci++;
-	if (c == 'f')
-		size += p->preci + ft_strnlen(res, '.');
-	else if (c == 's' && p->preci != 0)
-		p->preci > len ? (size += len) : (size += p->preci);
-	else
-		p->preci > len ? (size += p->preci) : (size += len);
-	//printf("res : %s, size : %d, len : %zu, preci : %zu\n", res, size, len, p->preci);
-	if (size < p->min)
-		size = p->min;
-	if (!(res2 = ft_strnew(size)))
-		return (0);
-	res2 = ft_memset(res2, '?', size);
-	return (res2);
-} 
 
 static void		putdouble(char *res, long long itg, int dot, t_ftp *p)
 {
@@ -68,7 +30,6 @@ static void		putdouble(char *res, long long itg, int dot, t_ftp *p)
 		res[--len] = itg % 10 + '0';
 		itg /= 10;
 	}
-	//printf("res : %s, itg : %lld, len : %zu, dot : %d\n", res, itg, len, dot);
 }
 
 void			print_do(t_ftp *p, long double flt)
@@ -93,7 +54,6 @@ void			print_do(t_ftp *p, long double flt)
 	itg = flt > 0 ? (long long)flt : -(long long)flt;
 	if ((long long)(flt * 10) % 10 > 4 || (long long)(flt * 10) % 10 < -4)
 		itg += 1;
-	//printf("itg : %lld, flt : %Lf, dot : %d\n", itg, flt, dot);
 	putdouble(res, itg, dot, p);
 	buffer(p, ft_strlen(res), res);
 	p->f & F_MINUS ? padding(p, ' '): 0;

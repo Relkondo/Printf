@@ -55,3 +55,12 @@ void	buffer(t_ftp *p, int n, char *str)
 	else if (n > 0)
 		buffer(p, n, str);
 }
+
+void		padding(t_ftp *p, char c)
+{
+	char	str[1];
+
+	str[0] = c;
+	while (p->min-- > p->size)
+		buffer(p, 1, str);
+}

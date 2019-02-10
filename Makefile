@@ -14,10 +14,9 @@ NAME = libftprintf.a
 
 SRCS = parse.c \
 	   printf.c \
-	   support.c \
-	   flags.c \
+	   float_print.c \
 	   convert_speci.c \
-	   val_print.c \
+	   int_print.c \
 	   size.c \
 
 OBJS = $(SRCS:.c=.o)
