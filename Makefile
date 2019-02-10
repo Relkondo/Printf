@@ -28,8 +28,8 @@ $(NAME) : lib $(OBJS)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 
-%.o : %.c
-	@clang -Wall -Wextra -Werror -I libft/includes -c $< -o $@
+%.o : %.c includes/ft_printf.h
+	@clang -Wall -Wextra -Werror -I includes -c $< -o $@
 
 clean :
 	@make -C libft/ clean
