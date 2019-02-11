@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/10 00:20:35 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/11 14:57:24 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void			print_nu(t_ftp *p, intmax_t n)
 		buffer(p, 1, "0");
 	putint(res, p->val, len);
 	p->val == 0 && p->f & F_PREZERO ? 0 : buffer(p, (int)len, res);
-	p->f & F_MINUS ? padding(p, ' '): 0;
+	p->f & F_MINUS ? padding(p, ' ') : 0;
 }
 
 static void		uputint_base(char *res, uintmax_t n, char *base_to)
@@ -63,7 +63,6 @@ static void		uputint_base(char *res, uintmax_t n, char *base_to)
 		bs++;
 	while ((tmp /= bs))
 		count++;
-	//printf("n : %jd, res : %s, bs : %d\n", n, res, bs);
 	res[count] = '\0';
 	if (n == 0)
 		res[0] = '0';
@@ -86,7 +85,7 @@ void			print_ba(t_ftp *p, uintmax_t n, char *base, char c)
 	pre = p->preci;
 	!(p->f & F_MINUS) && !(p->f & F_ZERO) ? padding(p, ' ') : 0;
 	p->u_val == 0 && (c == 'x' || c == 'X') ? p->f &= ~F_SHARP : 0;
-	p->f & F_SHARP && c == 'x' ? buffer(p, 2, "0x") : 0;
+	p->f & F_SHARP && (c == 'x' || c == 'p') ? buffer(p, 2, "0x") : 0;
 	p->f & F_SHARP && c == 'X' ? buffer(p, 2, "0X") : 0;
 	p->f & F_ZERO ? padding(p, '0') : 0;
 	uputint_base(res, n, base);
@@ -98,7 +97,7 @@ void			print_ba(t_ftp *p, uintmax_t n, char *base, char c)
 	}
 	while (pre-- > (int)len)
 		buffer(p, 1, "0");
-	//printf("n : %ju, res : %s, len : %zu\n", n, res, len);
-	(p->f & F_PREZERO) && !(n) && !(p->f & F_SHARP) ? 0 : buffer(p, (int)len, res);
-	p->f & F_MINUS ? padding(p, ' '): 0;
+	if (!(p->f & F_PREZERO) || n || p->f & F_SHARP)
+		buffer(p, (int)len, res);
+	p->f & F_MINUS ? padding(p, ' ') : 0;
 }

@@ -6,7 +6,7 @@
 /*   By: scoron <scoron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 15:52:54 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/09 22:58:58 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/11 15:10:02 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void		cs_char(t_ftp *p, char c)
 	}
 	else
 		buffer(p, 1, d);
-	p->f & F_MINUS ? padding(p, ' '): 0;
+	p->f & F_MINUS ? padding(p, ' ') : 0;
 }
 
 void		cs_str(t_ftp *p, char c)
@@ -79,8 +79,8 @@ void		cs_str(t_ftp *p, char c)
 	p->size = len;
 	if (!(p->f & F_MINUS))
 		p->f & F_ZERO ? padding(p, '0') : padding(p, ' ');
-	str ? buffer(p, len, str) : buffer(p, 6, "(null)");
-	p->f & F_MINUS ? padding(p, ' '): 0;
+	str ? buffer(p, len, str) : buffer(p, len, "(null)");
+	p->f & F_MINUS ? padding(p, ' ') : 0;
 }
 
 void		cs_point(t_ftp *p, char c)
@@ -93,5 +93,6 @@ void		cs_point(t_ftp *p, char c)
 	point = (uintmax_t *)va_arg(p->va, void *);
 	p->u_val = (uintmax_t)point;
 	p->size = size_ba(p, p->u_val, 'x');
-	print_ba(p, p->u_val, "0123456789abcdef", 'x');
+	p->u_val == 0 ? (p->size += 2) : 0;
+	print_ba(p, p->u_val, "0123456789abcdef", 'p');
 }

@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:20:06 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/09 19:55:40 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/11 13:52:39 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	buffer(t_ftp *p, int n, char *str)
 		buffer(p, n, str);
 }
 
-void		padding(t_ftp *p, char c)
+void	padding(t_ftp *p, char c)
 {
 	char	str[1];
 

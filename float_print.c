@@ -6,13 +6,13 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:52:30 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/10 00:09:58 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/11 13:58:31 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void		putdouble(char *res, long long itg, int dot, t_ftp *p)
+static void	putdouble(char *res, long long itg, int dot, t_ftp *p)
 {
 	long long		tmp;
 	size_t			len;
@@ -32,7 +32,7 @@ static void		putdouble(char *res, long long itg, int dot, t_ftp *p)
 	}
 }
 
-void			print_do(t_ftp *p, long double flt)
+void		print_do(t_ftp *p, long double flt)
 {
 	char			res[48];
 	long long		itg;
@@ -56,7 +56,7 @@ void			print_do(t_ftp *p, long double flt)
 		itg += 1;
 	putdouble(res, itg, dot, p);
 	buffer(p, ft_strlen(res), res);
-	p->f & F_MINUS ? padding(p, ' '): 0;
+	p->f & F_MINUS ? padding(p, ' ') : 0;
 }
 
 intmax_t	ft_arg(t_ftp *p)

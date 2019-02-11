@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 13:53:07 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/10 00:12:01 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/11 15:11:58 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,32 @@ int		main(void)
 
 	printf("float : %#2f, dec : %d, octal : %0o, hxdec p : %5.x, %5.0x intmax : %jd, char : %c, et le str : %s\n\n", f, k, k, k, k, -922337203685477580, c, str);
 	ft_printf("float : %#2f, dec : %d, octal : %0o, hxdec p : %5.x, %5.0x intmax : %jd, char : %c, et le str : %s\n\n", f, k, k, k, k, -922337203685477580, c, str);*/
-		int		nb;
-	char	c;
-	nb = 0;
-	c = 'W';
-	dprintf(2,"%5p\n", &nb);
-	dprintf(2,"%-15p\n", &nb);
-	dprintf(2,"%-5p\n", &nb);
-	dprintf(2,"%42p\n", &nb);
-	dprintf(2,"%-18p\n", &nb);
-	dprintf(2,"%42p\n", &nb);
-	dprintf(2,"%5p\n", &c);
-	dprintf(2,"%-15p\n", &c);
-	dprintf(2,"%-5p\n", &c);
-	dprintf(2,"%42p\n", &c);
-	dprintf(2,"%-18p\n", &c);
-	dprintf(2,"%42p\n", &c);
+	int ret;
 
-	ft_printf("%5p\n", &nb);
-	ft_printf("%-15p\n", &nb);
-	ft_printf("%-5p\n", &nb);
-	ft_printf("%42p\n", &nb);
-	ft_printf("%-18p\n", &nb);
-	ft_printf("%42p\n", &nb);
-	ft_printf("%5p\n", &c);
-	ft_printf("%-15p\n", &c);
-	ft_printf("%-5p\n", &c);
-	ft_printf("%42p\n", &c);
-	ft_printf("%-18p\n", &c);
-	ft_printf("%42p\n", &c);
+ret = ft_printf("cc%#.4X et %#0012x %04hX !!\n", 0xaef, 0xe, (unsigned short)0);
+printf("ret ft : %d\n", ret);
+ret = printf("cc%#.4X et %#0012x %04hX !!\n", 0xaef, 0xe, (unsigned short)0);
+printf("ret : %d\n", ret);
+ret = ft_printf("%0#10.0x\n", 0);
+printf("ret ft : %d\n", ret);
+ret = printf("%0#10.0x\n", 0);
+printf("ret : %d\n", ret);
+ret = ft_printf("%.2s\n", NULL);
+printf("ret ft : %d\n", ret);
+ret = printf("%.2s\n", NULL);
+printf("ret : %d\n", ret);
+ret = ft_printf("u%4.2ss %-1.s\n %---5.3s \n", "coco", NULL, "yooo");
+printf("ret ft : %d\n", ret);
+ret = printf("u%4.2ss %-1.s\n %---5.3s \n", "coco", NULL, "yooo");
+printf("ret : %d\n", ret);
+ret = ft_printf("%p\n", NULL);
+printf("ret ft : %d\n", ret);
+ret = printf("%p\n", NULL);
+printf("ret : %d\n", ret);
+ret = ft_printf("%----24p et hello %2p %12p\n", &ret, &main, NULL);
+printf("ret ft : %d\n", ret);
+ret = printf("%----24p et hello %2p %12p\n", &ret, &main, NULL);
+printf("ret : %d\n", ret);
 
 	return (0); 
 }
