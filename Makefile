@@ -6,7 +6,7 @@
 #    By: scoron <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:44:30 by scoron            #+#    #+#              #
-#    Updated: 2019/02/09 19:40:49 by scoron           ###   ########.fr        #
+#    Updated: 2019/02/11 15:24:32 by scoron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,12 +43,6 @@ re : fclean all
 
 lib :
 	@make -C libft/
-
-comp : $(NAME) 
-	clang main.c -fsanitize=address -g $(NAME) -Iincludes
-	
-test : comp
-	./a.out
 
 push : fclean
 	@git add -A

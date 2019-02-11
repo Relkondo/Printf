@@ -6,7 +6,7 @@
 /*   By: scoron <scoron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 17:05:45 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/11 14:38:17 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/11 15:25:20 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int		size_ba(t_ftp *p, uintmax_t n, char c)
 	int			len;
 	int			pre;
 
-	//printf("n : %ju\n", n);
 	size = p->f & F_PREZERO && !(n) ? 0 : 1;
 	pre = p->preci;
 	bs = 10;
@@ -51,7 +50,6 @@ int		size_ba(t_ftp *p, uintmax_t n, char c)
 		n /= bs;
 	while (pre-- > len)
 		size++;
-	//printf("size : %d\n", size);
 	return (size);
 }
 
