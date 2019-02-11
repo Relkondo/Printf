@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:20:06 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/11 13:52:39 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/11 17:45:08 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@ void	buffer(t_ftp *p, int n, char *str)
 	while (n > 0 && BUF_SIZE - p->len_buf >= n)
 	{
 		p->buf[p->len_buf] = *str;
-		str++;
+		p->padding ? 0 : str++;
 		p->len_buf++;
 		p->retv++;
 		n--;
 	}
-	if (p->len_buf == BUF_SIZE || n < 0 || n > BUF_SIZE - p->len_buf)
+	p->padding = 0;
+	if (p->len_buf == BUF_SIZE || n == -1 || n > BUF_SIZE - p->len_buf)
 	{
 		write(1, p->buf, p->len_buf);
 		p->len_buf = 0;
@@ -61,6 +62,6 @@ void	padding(t_ftp *p, char c)
 	char	str[1];
 
 	str[0] = c;
-	while (p->min-- > p->size)
-		buffer(p, 1, str);
+	p->padding = p->min - p->size;
+	buffer(p, p->padding, str);
 }

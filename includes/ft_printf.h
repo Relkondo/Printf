@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:24:04 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/11 15:26:31 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/11 17:38:56 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct		s_ftp
 	int				f;
 	size_t			preci;
 	int				min;
+	int				padding;
 	int				size;
 	int				retv;
 	intmax_t		val;

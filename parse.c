@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 16:07:22 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/11 14:24:06 by scoron           ###   ########.fr       */
+/*   Updated: 2019/02/11 17:45:33 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void				parse_options(t_ftp *p)
 	p->val = 0;
 	p->u_val = 0;
 	p->size = 0;
+	p->padding = 0;
 	parse_flags(p);
 	if (!func[0])
 		fill_func(func);
