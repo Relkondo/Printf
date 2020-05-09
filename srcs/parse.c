@@ -6,7 +6,7 @@
 /*   By: scoron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 16:07:22 by scoron            #+#    #+#             */
-/*   Updated: 2019/02/11 17:45:33 by scoron           ###   ########.fr       */
+/*   Updated: 2020/05/09 12:59:44 by scoron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void			fill_func(void (**func)(t_ftp *p, char c))
 	int	i;
 
 	i = -1;
-	while (++i < 257)
+	while (++i < 256)
 		func[i] = &cs_not_found;
 	func['d'] = &cs_int;
 	func['i'] = &cs_int;
